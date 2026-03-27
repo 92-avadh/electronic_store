@@ -8,6 +8,8 @@
 body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
+	-webkit-font-smoothing: antialiased; /* Makes fonts crisp on Chrome/Safari */
+	-moz-osx-font-smoothing: grayscale; /* Makes fonts crisp on Firefox */
 }
 
 h1, h2, h3, h4, h5, h6 {
