@@ -2,207 +2,148 @@
 $statement = $pdo->prepare("SELECT * FROM tbl_settings WHERE id=1");
 $statement->execute();
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-foreach ($result as $row)
-{
-	$footer_about = $row['footer_about'];
-	$contact_email = $row['contact_email'];
-	$contact_phone = $row['contact_phone'];
-	$contact_address = $row['contact_address'];
-	$footer_copyright = $row['footer_copyright'];
-	$total_recent_post_footer = $row['total_recent_post_footer'];
-    $total_popular_post_footer = $row['total_popular_post_footer'];
-    $newsletter_on_off = $row['newsletter_on_off'];
-    $before_body = $row['before_body'];
+foreach ($result as $row) {
+    $footer_copyright = $row['footer_copyright'];
 }
 ?>
 
+<footer class="bg-surfaceDark dark:bg-black text-white w-full pt-24 pb-10 border-t-0 dark:border-t dark:border-slate-800 transition-colors duration-300">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 px-6 md:px-12 max-w-[1440px] mx-auto" data-aos="fade-up">
+        
+        <div class="md:col-span-5 pr-0 md:pr-12">
+            <span class="text-2xl font-headline font-black tracking-tight text-white uppercase mb-6 block">
+                <?php echo isset($logo) && $logo != '' ? '<img src="assets/uploads/'.$logo.'" class="h-10 filter brightness-0 invert" alt="logo">' : '<span class="text-primary dark:text-indigo-400">E</span>-STORE'; ?>
+            </span>
+            <p class="text-slate-400 font-body text-base leading-relaxed mb-8 max-w-md">
+                Elevating the human experience through precision-selected technology. We curate only the finest electronics for the modern minimalist.
+            </p>
+            <div class="flex space-x-4">
+                <a href="#" class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-primary dark:hover:bg-indigo-600 transition-colors"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-primary dark:hover:bg-indigo-600 transition-colors"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-primary dark:hover:bg-indigo-600 transition-colors"><i class="fa fa-instagram"></i></a>
+            </div>
+        </div>
 
-<?php if($newsletter_on_off == 1): ?>
-<section class="home-newsletter">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="single">
-					<?php
-			if(isset($_POST['form_subscribe']))
-			{
+        <div class="md:col-span-2">
+            <h5 class="font-headline font-bold text-white mb-6 uppercase tracking-widest text-xs">Shop</h5>
+            <ul class="space-y-4 font-body text-sm font-medium text-slate-400">
+                <li><a class="hover:text-primary dark:hover:text-white transition-colors" href="product-category.php">All Products</a></li>
+                <li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">New Arrivals</a></li>
+                <li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Featured</a></li>
+            </ul>
+        </div>
 
-				if(empty($_POST['email_subscribe'])) 
-			    {
-			        $valid = 0;
-			        $error_message1 .= LANG_VALUE_131;
-			    }
-			    else
-			    {
-			    	if (filter_var($_POST['email_subscribe'], FILTER_VALIDATE_EMAIL) === false)
-				    {
-				        $valid = 0;
-				        $error_message1 .= LANG_VALUE_134;
-				    }
-				    else
-				    {
-				    	$statement = $pdo->prepare("SELECT * FROM tbl_subscriber WHERE subs_email=?");
-				    	$statement->execute(array($_POST['email_subscribe']));
-				    	$total = $statement->rowCount();							
-				    	if($total)
-				    	{
-				    		$valid = 0;
-				        	$error_message1 .= LANG_VALUE_147;
-				    	}
-				    	else
-				    	{
-				    		// Sending email to the requested subscriber for email confirmation
-				    		// Getting activation key to send via email. also it will be saved to database until user click on the activation link.
-				    		$key = md5(uniqid(rand(), true));
+        <div class="md:col-span-2">
+            <h5 class="font-headline font-bold text-white mb-6 uppercase tracking-widest text-xs">Support</h5>
+            <ul class="space-y-4 font-body text-sm font-medium text-slate-400">
+                <li><a class="hover:text-primary dark:hover:text-white transition-colors" href="contact.php">Contact Us</a></li>
+                <li><a class="hover:text-primary dark:hover:text-white transition-colors" href="faq.php">FAQ</a></li>
+                <li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Shipping & Returns</a></li>
+            </ul>
+        </div>
 
-				    		// Getting current date
-				    		$current_date = date('Y-m-d');
+        <div class="md:col-span-3">
+            <h5 class="font-headline font-bold text-white mb-6 uppercase tracking-widest text-xs">Stay Updated</h5>
+            <p class="text-slate-400 text-sm mb-4">Join our newsletter for exclusive releases and tech insights.</p>
+            <form action="" method="post" class="relative">
+                <input type="email" placeholder="Email address..." class="w-full bg-slate-800 dark:bg-slate-900 border border-transparent dark:border-slate-800 rounded-full py-3 px-5 text-sm text-white focus:ring-2 focus:ring-primary dark:focus:ring-indigo-500 outline-none transition-all">
+                <button type="submit" class="absolute right-1 top-1 bottom-1 bg-primary hover:bg-primaryHover dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-full px-4 text-xs font-bold tracking-wider uppercase transition-colors">
+                    Join
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="mt-20 pt-8 border-t border-slate-800 px-6 md:px-12 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="font-headline text-[11px] tracking-[0.2em] uppercase text-slate-500 font-bold">
+            <?php echo strip_tags($footer_copyright); ?>
+        </p>
+        <div class="flex gap-4 text-slate-500 text-sm">
+            <a href="#" class="hover:text-white transition-colors">Privacy</a>
+            <a href="#" class="hover:text-white transition-colors">Terms</a>
+        </div>
+    </div>
+</footer>
 
-				    		// Getting current date and time
-				    		$current_date_time = date('Y-m-d H:i:s');
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, offset: 50, duration: 800, easing: 'ease-out-cubic' });
+</script>
 
-				    		// Inserting data into the database
-				    		$statement = $pdo->prepare("INSERT INTO tbl_subscriber (subs_email,subs_date,subs_date_time,subs_hash,subs_active) VALUES (?,?,?,?,?)");
-				    		$statement->execute(array($_POST['email_subscribe'],$current_date,$current_date_time,$key,0));
+<script>
+    var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-				    		// Sending Confirmation Email
-				    		$to = $_POST['email_subscribe'];
-							$subject = 'Subscriber Email Confirmation';
-							
-							// Getting the url of the verification link
-							$verification_url = BASE_URL.'verify.php?email='.$to.'&key='.$key;
+    // Change the icons inside the button based on previous settings
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        themeToggleLightIcon.classList.remove('hidden');
+    } else {
+        themeToggleDarkIcon.classList.remove('hidden');
+    }
 
-							$message = '
-Thanks for your interest to subscribe our newsletter!<br><br>
-Please click this link to confirm your subscription:
-					'.$verification_url.'<br><br>
-This link will be active only for 24 hours.
-					';
+    var themeToggleBtn = document.getElementById('theme-toggle');
 
-							$headers = 'From: ' . $contact_email . "\r\n" .
-								   'Reply-To: ' . $contact_email . "\r\n" .
-								   'X-Mailer: PHP/' . phpversion() . "\r\n" . 
-								   "MIME-Version: 1.0\r\n" . 
-								   "Content-Type: text/html; charset=ISO-8859-1\r\n";
+    themeToggleBtn.addEventListener('click', function() {
+        themeToggleDarkIcon.classList.toggle('hidden');
+        themeToggleLightIcon.classList.toggle('hidden');
 
-							// Sending the email
-							mail($to, $subject, $message, $headers);
-
-							$success_message1 = LANG_VALUE_136;
-				    	}
-				    }
-			    }
-			}
-			if($error_message1 != '') {
-				echo "<script>alert('".$error_message1."')</script>";
-			}
-			if($success_message1 != '') {
-				echo "<script>alert('".$success_message1."')</script>";
-			}
-			?>
-				<form action="" method="post">
-					<?php $csrf->echoInputField(); ?>
-					<h2><?php echo LANG_VALUE_93; ?></h2>
-					<div class="input-group">
-			        	<input type="email" class="form-control" placeholder="<?php echo LANG_VALUE_95; ?>" name="email_subscribe">
-			         	<span class="input-group-btn">
-			         	<button class="btn btn-theme" type="submit" name="form_subscribe"><?php echo LANG_VALUE_92; ?></button>
-			         	</span>
-			        </div>
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</section>
-<?php endif; ?>
-
-
-
-
-<div class="footer-bottom">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 copyright">
-				<?php echo $footer_copyright; ?>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<a href="#" class="scrollup">
-	<i class="fa fa-angle-up"></i>
-</a>
+        if (localStorage.getItem('color-theme')) {
+            if (localStorage.getItem('color-theme') === 'light') {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            }
+        } else {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+    });
+</script>
 
 <?php
 $statement = $pdo->prepare("SELECT * FROM tbl_settings WHERE id=1");
 $statement->execute();
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);                            
-foreach ($result as $row) {
-    $stripe_public_key = $row['stripe_public_key'];
-    $stripe_secret_key = $row['stripe_secret_key'];
-}
+foreach ($result as $row) { $stripe_public_key = $row['stripe_public_key']; }
 ?>
-
 <script src="assets/js/jquery-2.2.4.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 <script src="https://js.stripe.com/v2/"></script>
-<script src="assets/js/megamenu.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/owl.animate.js"></script>
-<script src="assets/js/jquery.bxslider.min.js"></script>
 <script src="assets/js/jquery.magnific-popup.min.js"></script>
 <script src="assets/js/rating.js"></script>
-<script src="assets/js/jquery.touchSwipe.min.js"></script>
-<script src="assets/js/bootstrap-touch-slider.js"></script>
-<script src="assets/js/select2.full.min.js"></script>
 <script src="assets/js/custom.js"></script>
 <script>
-	function confirmDelete()
-	{
-	    return confirm("Do you sure want to delete this data?");
-	}
+	function confirmDelete() { return confirm("Are you sure you want to delete this?"); }
 	$(document).ready(function () {
 		advFieldsStatus = $('#advFieldsStatus').val();
-
-		$('#paypal_form').hide();
-		$('#stripe_form').hide();
-		$('#bank_form').hide();
+		$('#paypal_form').hide(); $('#stripe_form').hide(); $('#bank_form').hide();
 
         $('#advFieldsStatus').on('change',function() {
             advFieldsStatus = $('#advFieldsStatus').val();
             if ( advFieldsStatus == '' ) {
-            	$('#paypal_form').hide();
-				$('#stripe_form').hide();
-				$('#bank_form').hide();
+            	$('#paypal_form').hide(); $('#stripe_form').hide(); $('#bank_form').hide();
             } else if ( advFieldsStatus == 'PayPal' ) {
-               	$('#paypal_form').show();
-				$('#stripe_form').hide();
-				$('#bank_form').hide();
+               	$('#paypal_form').show(); $('#stripe_form').hide(); $('#bank_form').hide();
             } else if ( advFieldsStatus == 'Stripe' ) {
-               	$('#paypal_form').hide();
-				$('#stripe_form').show();
-				$('#bank_form').hide();
+               	$('#paypal_form').hide(); $('#stripe_form').show(); $('#bank_form').hide();
             } else if ( advFieldsStatus == 'Bank Deposit' ) {
-            	$('#paypal_form').hide();
-				$('#stripe_form').hide();
-				$('#bank_form').show();
+            	$('#paypal_form').hide(); $('#stripe_form').hide(); $('#bank_form').show();
             }
         });
 	});
 
-
 	$(document).on('submit', '#stripe_form', function () {
-        // createToken returns immediately - the supplied callback submits the form if there are no errors
         $('#submit-button').prop("disabled", true);
         $("#msg-container").hide();
         Stripe.card.createToken({
-            number: $('.card-number').val(),
-            cvc: $('.card-cvc').val(),
-            exp_month: $('.card-expiry-month').val(),
-            exp_year: $('.card-expiry-year').val()
-            // name: $('.card-holder-name').val()
+            number: $('.card-number').val(), cvc: $('.card-cvc').val(),
+            exp_month: $('.card-expiry-month').val(), exp_year: $('.card-expiry-year').val()
         }, stripeResponseHandler);
         return false;
     });
@@ -210,8 +151,7 @@ foreach ($result as $row) {
     function stripeResponseHandler(status, response) {
         if (response.error) {
             $('#submit-button').prop("disabled", false);
-            $("#msg-container").html('<div style="color: red;border: 1px solid;margin: 10px 0px;padding: 5px;"><strong>Error:</strong> ' + response.error.message + '</div>');
-            $("#msg-container").show();
+            $("#msg-container").html('<div style="color: red;border: 1px solid;margin: 10px 0px;padding: 5px;"><strong>Error:</strong> ' + response.error.message + '</div>').show();
         } else {
             var form$ = $("#stripe_form");
             var token = response['id'];
@@ -220,6 +160,5 @@ foreach ($result as $row) {
         }
     }
 </script>
-<?php echo $before_body; ?>
 </body>
 </html>
