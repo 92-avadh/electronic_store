@@ -135,7 +135,7 @@ if(isset($_POST['form_add_to_cart'])) {
 }
 
 // ==========================================
-// ADD REVIEW LOGIC
+// ADD REVIEW LOGIC (Wrapped in Try-Catch for safety)
 // ==========================================
 if(isset($_POST['form_review'])) {
     if(!isset($_SESSION['customer'])) {
@@ -149,15 +149,18 @@ if(isset($_POST['form_review'])) {
         } elseif(empty($comment)) {
             $error_message .= 'Please write a review comment.<br>';
         } else {
-            // Check if user already reviewed this product
-            $stmt = $pdo->prepare("SELECT * FROM tbl_rating WHERE p_id=? AND cust_id=?");
-            $stmt->execute(array($_REQUEST['id'], $_SESSION['customer']['cust_id']));
-            if($stmt->rowCount() > 0) {
-                $error_message .= 'You have already reviewed this product.<br>';
-            } else {
-                $stmt = $pdo->prepare("INSERT INTO tbl_rating (p_id, cust_id, rating, comment, rating_date) VALUES (?, ?, ?, ?, ?)");
-                $stmt->execute(array($_REQUEST['id'], $_SESSION['customer']['cust_id'], $rating, $comment, date('Y-m-d H:i:s')));
-                $success_message = 'Thank you! Your review has been submitted.';
+            try {
+                $stmt = $pdo->prepare("SELECT * FROM tbl_rating WHERE p_id=? AND cust_id=?");
+                $stmt->execute(array($_REQUEST['id'], $_SESSION['customer']['cust_id']));
+                if($stmt->rowCount() > 0) {
+                    $error_message .= 'You have already reviewed this product.<br>';
+                } else {
+                    $stmt = $pdo->prepare("INSERT INTO tbl_rating (p_id, cust_id, rating, comment, rating_date) VALUES (?, ?, ?, ?, ?)");
+                    $stmt->execute(array($_REQUEST['id'], $_SESSION['customer']['cust_id'], $rating, $comment, date('Y-m-d H:i:s')));
+                    $success_message = 'Thank you! Your review has been submitted.';
+                }
+            } catch (Exception $e) {
+                $error_message .= 'Review system is currently unavailable. Please try again later.<br>';
             }
         }
     }
@@ -247,7 +250,8 @@ if(isset($_POST['form_review'])) {
 
                     <div class="flex items-baseline gap-4 mb-8">
                         <span class="text-4xl font-headline font-black text-surfaceDark dark:text-white tracking-tighter">₹<?php echo number_format($p_current_price); ?></span>
-                        <?php if($p_old_price != ''): ?>
+                        
+                        <?php if($p_old_price != '' && $p_old_price > 0): ?>
                             <span class="text-slate-400 dark:text-slate-500 line-through text-lg font-bold">₹<?php echo number_format($p_old_price); ?></span>
                             <?php 
                             $discount = round((($p_old_price - $p_current_price) / $p_old_price) * 100);
@@ -439,15 +443,20 @@ if(isset($_POST['form_review'])) {
 
                         <div class="lg:col-span-7 space-y-6">
                             <?php
-                            $stmt_rev = $pdo->prepare("
-                                SELECT r.*, c.cust_name 
-                                FROM tbl_rating r 
-                                JOIN tbl_customer c ON r.cust_id = c.cust_id 
-                                WHERE r.p_id = ? 
-                                ORDER BY r.rating_id DESC
-                            ");
-                            $stmt_rev->execute(array($_REQUEST['id']));
-                            $reviews = $stmt_rev->fetchAll(PDO::FETCH_ASSOC);
+                            $reviews = [];
+                            try {
+                                $stmt_rev = $pdo->prepare("
+                                    SELECT r.*, c.cust_name 
+                                    FROM tbl_rating r 
+                                    JOIN tbl_customer c ON r.cust_id = c.cust_id 
+                                    WHERE r.p_id = ? 
+                                    ORDER BY r.rating_id DESC
+                                ");
+                                $stmt_rev->execute(array($_REQUEST['id']));
+                                $reviews = $stmt_rev->fetchAll(PDO::FETCH_ASSOC);
+                            } catch(Exception $e) {
+                                // Silent fail to prevent crash if table is completely missing
+                            }
 
                             if(count($reviews) == 0): ?>
                                 <div class="text-center py-12 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-700/50">

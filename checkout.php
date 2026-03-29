@@ -148,29 +148,17 @@ if(!isset($_SESSION['cart_p_id'])) {
                             </a>
                         </div>
                     <?php else: ?>
+                        
                         <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
                             <h3 class="font-headline font-black text-xl text-surfaceDark dark:text-white mb-6">Select Payment Method</h3>
                             
                             <select name="payment_method" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white font-bold text-sm outline-none mb-6" id="advFieldsStatus">
                                 <option value=""><?php echo LANG_VALUE_35; ?></option>
-                                <option value="PayPal"><?php echo LANG_VALUE_36; ?></option>
                                 <option value="Stripe">Credit/Debit Card (Stripe)</option>
-                                <option value="Bank Deposit"><?php echo LANG_VALUE_38; ?></option>
+                                <option value="COD">Cash on Delivery (COD)</option>
                             </select>
 
-                            <form class="paypal" action="<?php echo BASE_URL; ?>payment/paypal/payment_process.php" method="post" id="paypal_form" target="_blank">
-                                <input type="hidden" name="cmd" value="_xclick" />
-                                <input type="hidden" name="no_note" value="1" />
-                                <input type="hidden" name="lc" value="UK" />
-                                <input type="hidden" name="currency_code" value="USD" />
-                                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-                                <input type="hidden" name="final_total" value="<?php echo $final_total; ?>">
-                                <button type="submit" class="w-full py-4 bg-[#003087] hover:bg-[#001c56] text-white font-bold rounded-xl shadow-md transition-colors flex justify-center items-center gap-2" name="form1">
-                                    Pay with PayPal
-                                </button>
-                            </form>
-
-                            <form action="payment/stripe/init.php" method="post" id="stripe_form">
+                            <form action="payment/stripe/init.php" method="post" id="stripe_form" style="display: none;">
                                 <input type="hidden" name="payment" value="posted">
                                 <input type="hidden" name="amount" value="<?php echo $final_total; ?>">
                                 <div class="space-y-4 mb-6">
@@ -187,25 +175,36 @@ if(!isset($_SESSION['cart_p_id'])) {
                                 <div id="msg-container"></div>
                             </form>
 
-                            <form action="payment/bank/init.php" method="post" id="bank_form">
+                            <form action="payment/cod/init.php" method="post" id="cod_form" style="display: none;">
                                 <input type="hidden" name="amount" value="<?php echo $final_total; ?>">
-                                <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4 mb-4 text-sm text-textMuted dark:text-slate-400 border border-slate-200 dark:border-slate-700">
-                                    <p class="font-bold text-surfaceDark dark:text-white mb-2"><?php echo LANG_VALUE_43; ?></p>
-                                    <?php
-                                    $statement = $pdo->prepare("SELECT * FROM tbl_settings WHERE id=1");
-                                    $statement->execute();
-                                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach ($result as $row) { echo nl2br($row['bank_detail']); }
-                                    ?>
+                                <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4 mb-6 text-sm text-textMuted dark:text-slate-400 border border-slate-200 dark:border-slate-700 text-center">
+                                    <span class="material-symbols-outlined text-4xl text-primary dark:text-indigo-400 mb-2">payments</span>
+                                    <p class="font-bold text-surfaceDark dark:text-white mb-1">Cash on Delivery</p>
+                                    <p>Pay with cash or card upon delivery of your items.</p>
                                 </div>
-                                <div class="mb-6">
-                                    <label class="block text-xs font-bold text-surfaceDark dark:text-white mb-2 uppercase"><?php echo LANG_VALUE_44; ?></label>
-                                    <textarea name="transaction_info" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-surfaceDark dark:text-white outline-none" rows="3" placeholder="Enter transaction ID or reference..."></textarea>
-                                </div>
-                                <button type="submit" class="w-full py-4 bg-primary hover:bg-primaryHover dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white font-bold rounded-xl shadow-md transition-colors" name="form3">
-                                    Confirm Bank Transfer
+                                <button type="submit" class="w-full py-4 bg-primary hover:bg-primaryHover dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white font-bold rounded-xl shadow-md transition-colors" name="form_cod">
+                                    Confirm Order (COD)
                                 </button>
                             </form>
+
+                            <script>
+                                document.getElementById('advFieldsStatus').addEventListener('change', function() {
+                                    var stripeForm = document.getElementById('stripe_form');
+                                    var codForm = document.getElementById('cod_form');
+                                    
+                                    // First hide both
+                                    stripeForm.style.display = 'none';
+                                    codForm.style.display = 'none';
+                                    
+                                    // Then show the selected one
+                                    if (this.value === 'Stripe') {
+                                        stripeForm.style.display = 'block';
+                                    } else if (this.value === 'COD') {
+                                        codForm.style.display = 'block';
+                                    }
+                                });
+                            </script>
+
                         </div>
                     <?php endif; ?>
                 </div>

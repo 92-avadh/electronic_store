@@ -53,11 +53,5 @@ $inactive_class = "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:
             <span class="material-symbols-outlined text-[20px]">settings</span><span>Global Settings</span>
         </a>
         
-        <div class="mt-8 pt-4 border-t border-slate-100 dark:border-slate-700/50">
-            <a href="logout.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 font-bold">
-                <span class="material-symbols-outlined text-[20px]">logout</span><span>Sign Out</span>
-            </a>
-        </div>
-        
     </div>
 </aside>
