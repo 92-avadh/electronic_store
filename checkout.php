@@ -162,14 +162,14 @@ if(!isset($_SESSION['cart_p_id'])) {
                                 <input type="hidden" name="payment" value="posted">
                                 <input type="hidden" name="amount" value="<?php echo $final_total; ?>">
                                 <div class="space-y-4 mb-6">
-                                    <input type="text" name="card_number" class="card-number w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white placeholder:text-slate-400" placeholder="Card Number">
+                                    <input type="text" class="card-number w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white placeholder:text-slate-400" placeholder="Card Number" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                     <div class="grid grid-cols-3 gap-2">
-                                        <input type="text" name="card_cvv" class="card-cvc w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white placeholder:text-slate-400" placeholder="CVV">
-                                        <input type="text" name="card_month" class="card-expiry-month w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white placeholder:text-slate-400" placeholder="MM">
-                                        <input type="text" name="card_year" class="card-expiry-year w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white placeholder:text-slate-400" placeholder="YYYY">
+                                        <input type="text" class="card-cvc w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white placeholder:text-slate-400" placeholder="CVV" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                        <input type="text" class="card-expiry-month w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white placeholder:text-slate-400" placeholder="MM" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value !== '' && parseInt(this.value) > 12) this.value = '12';">
+                                        <input type="text" class="card-expiry-year w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl h-12 px-4 text-surfaceDark dark:text-white placeholder:text-slate-400" placeholder="YYYY" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                     </div>
                                 </div>
-                                <button type="submit" class="w-full py-4 bg-[#635BFF] hover:bg-[#4a42d4] text-white font-bold rounded-xl shadow-md transition-colors flex justify-center items-center" name="form2" id="submit-button">
+                                <button type="submit" class="w-full py-4 bg-[#635BFF] hover:bg-[#4a42d4] text-white font-bold rounded-xl shadow-md transition-colors flex justify-center items-center" id="submit-button">
                                     Pay Securely via Stripe
                                 </button>
                                 <div id="msg-container"></div>

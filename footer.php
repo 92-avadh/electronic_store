@@ -122,43 +122,60 @@ foreach ($result as $row) { $stripe_public_key = $row['stripe_public_key']; }
 <script src="assets/js/rating.js"></script>
 <script src="assets/js/custom.js"></script>
 <script>
-	function confirmDelete() { return confirm("Are you sure you want to delete this?"); }
-	$(document).ready(function () {
-		advFieldsStatus = $('#advFieldsStatus').val();
-		$('#paypal_form').hide(); $('#stripe_form').hide(); $('#bank_form').hide();
+    function confirmDelete() { return confirm("Are you sure you want to delete this?"); }
+    
+    // Stripe setup
+    Stripe.setPublishableKey('<?php echo $stripe_public_key; ?>');
 
-        $('#advFieldsStatus').on('change',function() {
-            advFieldsStatus = $('#advFieldsStatus').val();
-            if ( advFieldsStatus == '' ) {
-            	$('#paypal_form').hide(); $('#stripe_form').hide(); $('#bank_form').hide();
-            } else if ( advFieldsStatus == 'PayPal' ) {
-               	$('#paypal_form').show(); $('#stripe_form').hide(); $('#bank_form').hide();
-            } else if ( advFieldsStatus == 'Stripe' ) {
-               	$('#paypal_form').hide(); $('#stripe_form').show(); $('#bank_form').hide();
-            } else if ( advFieldsStatus == 'Bank Deposit' ) {
-            	$('#paypal_form').hide(); $('#stripe_form').hide(); $('#bank_form').show();
-            }
-        });
-	});
-
-	$(document).on('submit', '#stripe_form', function () {
+    $(document).on('submit', '#stripe_form', function () {
         $('#submit-button').prop("disabled", true);
         $("#msg-container").hide();
+
+        var cardNum = $('.card-number').val();
+        var cardCvv = $('.card-cvc').val();
+        var cardMonth = $('.card-expiry-month').val();
+        var cardYear = $('.card-expiry-year').val();
+
+        // Ensure fields meet the exact lengths before sending to Stripe
+        if(cardNum.length !== 16) {
+            $('#submit-button').prop("disabled", false);
+            $("#msg-container").html('<div style="color: red;border: 1px solid;border-radius: 8px;margin: 10px 0px;padding: 10px;font-size: 14px;"><strong>Error:</strong> Card number must be exactly 16 digits.</div>').show();
+            return false;
+        }
+        if(cardCvv.length !== 3) {
+            $('#submit-button').prop("disabled", false);
+            $("#msg-container").html('<div style="color: red;border: 1px solid;border-radius: 8px;margin: 10px 0px;padding: 10px;font-size: 14px;"><strong>Error:</strong> CVV must be exactly 3 digits.</div>').show();
+            return false;
+        }
+        if(cardYear.length !== 4) {
+            $('#submit-button').prop("disabled", false);
+            $("#msg-container").html('<div style="color: red;border: 1px solid;border-radius: 8px;margin: 10px 0px;padding: 10px;font-size: 14px;"><strong>Error:</strong> Expiry year must be exactly 4 digits.</div>').show();
+            return false;
+        }
+
+        // Send to Stripe
         Stripe.card.createToken({
-            number: $('.card-number').val(), cvc: $('.card-cvc').val(),
-            exp_month: $('.card-expiry-month').val(), exp_year: $('.card-expiry-year').val()
+            number: cardNum, 
+            cvc: cardCvv,
+            exp_month: cardMonth, 
+            exp_year: cardYear
         }, stripeResponseHandler);
+        
         return false;
     });
-    Stripe.setPublishableKey('<?php echo $stripe_public_key; ?>');
+
     function stripeResponseHandler(status, response) {
         if (response.error) {
             $('#submit-button').prop("disabled", false);
-            $("#msg-container").html('<div style="color: red;border: 1px solid;margin: 10px 0px;padding: 5px;"><strong>Error:</strong> ' + response.error.message + '</div>').show();
+            $("#msg-container").html('<div style="color: red;border: 1px solid;border-radius: 8px;margin: 10px 0px;padding: 10px;font-size: 14px;"><strong>Error:</strong> ' + response.error.message + '</div>').show();
         } else {
             var form$ = $("#stripe_form");
             var token = response['id'];
             form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+            
+            // Add the missing submit button variable so the backend processes the form properly
+            form$.append("<input type='hidden' name='form2' value='1' />");
+            
             form$.get(0).submit();
         }
     }
