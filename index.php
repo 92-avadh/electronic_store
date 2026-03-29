@@ -15,69 +15,115 @@ foreach ($result as $row) {
 }
 ?>
 
-<main class="pt-20 bg-white dark:bg-slate-900 transition-colors duration-300">
-    <section class="min-h-[85vh] flex items-center px-6 md:px-12 relative overflow-hidden bg-gradient-to-tr from-indigo-50/50 to-white dark:from-slate-900 dark:to-slate-900">
-        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 dark:bg-indigo-500/10 rounded-full blur-3xl -z-10 animate-[pulse_6s_ease-in-out_infinite]"></div>
+<style>
+    /* Custom Infinite Ticker Animation */
+    @keyframes ticker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-ticker {
+        display: flex;
+        width: 200%;
+        animation: ticker 30s linear infinite;
+    }
+    .animate-ticker:hover {
+        animation-play-state: paused;
+    }
+</style>
+
+<main class="pt-20 bg-[#faf8ff] dark:bg-slate-950 transition-colors duration-500 overflow-hidden">
+    
+    <section class="relative min-h-[85vh] flex items-center px-6 md:px-12 overflow-hidden">
+        <div class="absolute top-1/4 -right-64 w-[800px] h-[800px] bg-blue-600/20 dark:bg-indigo-600/20 rounded-full blur-[120px] animate-[pulse_8s_ease-in-out_infinite] pointer-events-none"></div>
+        <div class="absolute bottom-0 -left-64 w-[600px] h-[600px] bg-teal-500/10 dark:bg-teal-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         
-        <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20 w-full">
-            <div class="space-y-8" data-aos="fade-right" data-aos-duration="1000">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-primary dark:text-indigo-400 text-xs font-bold tracking-[0.2em] uppercase rounded-full shadow-sm transition-colors duration-300">
-                    <span class="w-2 h-2 rounded-full bg-primary dark:bg-indigo-400 animate-ping"></span>
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20 w-full relative z-10">
+            <div class="space-y-8" data-aos="fade-right" data-aos-duration="1200">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 text-blue-700 dark:text-indigo-400 text-[10px] font-black tracking-[0.2em] uppercase rounded-full shadow-sm">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+                    </span>
                     Next-Gen Architecture
                 </div>
-                <h1 class="font-headline text-6xl lg:text-8xl font-black text-surfaceDark dark:text-white leading-[1] tracking-tighter">
-                    THE FUTURE <br/><span class="text-gradient">IS NOW.</span>
+                <h1 class="font-headline text-6xl lg:text-[5.5rem] font-black text-slate-900 dark:text-white leading-[1.05] tracking-tighter">
+                    THE FUTURE <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-400 dark:from-indigo-400 dark:to-cyan-300">IS NOW.</span>
                 </h1>
-                <p class="text-lg text-textMuted dark:text-slate-400 max-w-md leading-relaxed font-medium">
-                    Experience unrivaled performance with our curated selection of elite computing and smart home innovations. Designed for those who demand the best.
+                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed font-medium">
+                    Experience unrivaled performance with our curated selection of elite computing and smart home innovations.
                 </p>
-                <div class="flex items-center space-x-5 pt-4">
-                    <a href="product-category.php" class="bg-primary hover:bg-primaryHover dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white px-8 py-4 rounded-full font-headline font-bold text-sm tracking-widest uppercase transition-all shadow-lg shadow-primary/30 dark:shadow-indigo-500/20 active:scale-95 inline-block">
-                        Shop Collection
+                <div class="flex flex-wrap items-center gap-4 pt-4">
+                    <a href="product.php" class="bg-blue-600 hover:bg-blue-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white px-10 py-4 rounded-full font-headline font-bold text-sm tracking-widest uppercase transition-all shadow-[0_10px_30px_-10px_rgba(37,99,235,0.5)] hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.6)]">
+                        Explore Ecosystem
                     </a>
                 </div>
             </div>
+            
             <div class="relative group" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-                <div class="absolute inset-0 bg-primary/10 dark:bg-indigo-500/20 rounded-[2rem] blur-2xl transform group-hover:scale-105 transition-transform duration-700"></div>
-                <img alt="Premium tech device" class="relative rounded-2xl transform transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-2xl z-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmM0vk2pt3bgNFDLMJGi-nu5JSE7ImYHWX-bmnIwVM-mdg70TX76Cf0VmrymbxHSTaw8yockxj_HXwJeDbMx7zDyAFwysxTX_-zPnjizzLUyymz2mWEOg8M4TxIuJ-FjLXPGzAR-Hx4ZSgpzK3zyacTLZup-s-lDPvJ6BPJL6y5E35tr-9oviWLSrUzeew-ig8p0QVg1IH4PCLNcCiB6UPnDDApExT2O1QdbvGrn8WtjdOolPsqm1a-jvJAz2dv2H1ECfwtOAz4n0f" style="width: 100%; height: auto; object-fit: cover; aspect-ratio: 4/3;"/>
+                <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-teal-400/10 dark:from-indigo-500/20 dark:to-cyan-400/20 rounded-full blur-3xl transform group-hover:scale-110 transition-transform duration-700 ease-out"></div>
+                <img alt="Premium Tech" class="relative z-10 w-full max-w-2xl mx-auto transform transition-transform duration-[2000ms] group-hover:-translate-y-8 drop-shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmM0vk2pt3bgNFDLMJGi-nu5JSE7ImYHWX-bmnIwVM-mdg70TX76Cf0VmrymbxHSTaw8yockxj_HXwJeDbMx7zDyAFwysxTX_-zPnjizzLUyymz2mWEOg8M4TxIuJ-FjLXPGzAR-Hx4ZSgpzK3zyacTLZup-s-lDPvJ6BPJL6y5E35tr-9oviWLSrUzeew-ig8p0QVg1IH4PCLNcCiB6UPnDDApExT2O1QdbvGrn8WtjdOolPsqm1a-jvJAz2dv2H1ECfwtOAz4n0f" style="object-fit: contain;"/>
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6 md:px-12 bg-surface dark:bg-slate-800/30 transition-colors duration-300 border-y border-slate-100 dark:border-slate-800/50">
-        <div class="max-w-[1440px] mx-auto">
-            <div class="mb-10" data-aos="fade-up">
-                <span class="text-primary dark:text-indigo-400 font-bold text-xs tracking-[0.3em] uppercase mb-4 block">Ecosystems</span>
-                <h2 class="font-headline text-4xl font-black text-surfaceDark dark:text-white tracking-tight">CURATED COLLECTIONS</h2>
+    <div class="overflow-hidden bg-blue-600 dark:bg-indigo-600 py-3 relative z-20 shadow-lg flex border-y border-blue-500 dark:border-indigo-500">
+        <div class="animate-ticker text-white font-black uppercase tracking-[0.2em] text-xs flex items-center shrink-0">
+            <span class="px-8 flex items-center gap-4"><span class="material-symbols-outlined text-[16px]">memory</span> PRECISION ENGINEERING</span> <span class="opacity-50">•</span>
+            <span class="px-8 flex items-center gap-4"><span class="material-symbols-outlined text-[16px]">speed</span> UNCOMPROMISING PERFORMANCE</span> <span class="opacity-50">•</span>
+            <span class="px-8 flex items-center gap-4"><span class="material-symbols-outlined text-[16px]">architecture</span> AEROSPACE GRADE MATERIALS</span> <span class="opacity-50">•</span>
+            <span class="px-8 flex items-center gap-4"><span class="material-symbols-outlined text-[16px]">support_agent</span> ELITE 24/7 SUPPORT</span> <span class="opacity-50">•</span>
+            <span class="px-8 flex items-center gap-4"><span class="material-symbols-outlined text-[16px]">memory</span> PRECISION ENGINEERING</span> <span class="opacity-50">•</span>
+            <span class="px-8 flex items-center gap-4"><span class="material-symbols-outlined text-[16px]">speed</span> UNCOMPROMISING PERFORMANCE</span> <span class="opacity-50">•</span>
+            <span class="px-8 flex items-center gap-4"><span class="material-symbols-outlined text-[16px]">architecture</span> AEROSPACE GRADE MATERIALS</span> <span class="opacity-50">•</span>
+            <span class="px-8 flex items-center gap-4"><span class="material-symbols-outlined text-[16px]">support_agent</span> ELITE 24/7 SUPPORT</span> <span class="opacity-50">•</span>
+        </div>
+    </div>
+
+    <section class="py-24 px-6 md:px-12 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 transition-colors duration-500">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="mb-16 text-center max-w-2xl mx-auto" data-aos="fade-up">
+                <span class="text-blue-600 dark:text-indigo-400 font-black text-[10px] tracking-[0.3em] uppercase mb-4 block">The Slate Advantage</span>
+                <h2 class="font-headline text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">CRAFTED FOR CREATORS</h2>
+                <p class="text-slate-500 dark:text-slate-400 mt-4 text-sm md:text-base font-medium">We don't compromise on quality. Every instrument in our ecosystem is designed to eliminate bottlenecks and elevate your workflow.</p>
             </div>
-            <div class="grid grid-cols-1 gap-6 h-[400px] md:h-[450px]">
-                
-                <div class="relative rounded-3xl overflow-hidden bg-slate-200 dark:bg-slate-800 group cursor-pointer shadow-xl" onclick="window.location.href='product-category.php';">
-                    <img class="absolute inset-0 w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal opacity-90 transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDecRGXKpxy-quMvXQngfCGJr-KYUTdNw904H67-dy730H6mUGnNkxJqF-L-7WZc57pu4VDP7F1tpXExahDAOAAHZes271Xfwpp6G_4tBlxuiVvvF0DxC9ui44XG6bbb9iU-qW__6XHxjhNDxeosidOOFqkpYiQ3bMrHmNlVaLYV3AZ7FlIaZzLvCTg7VYAfMVt8ky32g0nUfgN5jWxA_Ms7RBdt29UmXbFTU0urHy9baWzxjIW2VX4q8AtHo-PgZGvqDYWah1kji4d" alt="Laptops"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"></div>
-                    <div class="absolute bottom-12 left-12 text-white">
-                        <h3 class="text-4xl md:text-6xl font-headline font-black mb-3">LAPTOPS</h3>
-                        <p class="text-sm md:text-base tracking-widest font-bold opacity-80 uppercase">Precision Engineered. Performance First.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-50 dark:bg-slate-800 p-10 rounded-[2rem] border border-slate-200/50 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-indigo-500/10 hover:-translate-y-2 transition-all duration-500 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-indigo-500/20 text-blue-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-3xl">developer_board</span>
                     </div>
-                    <div class="absolute bottom-12 right-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:block">
-                        <span class="material-symbols-outlined text-5xl">arrow_forward</span>
-                    </div>
+                    <h3 class="font-headline font-black text-xl text-slate-900 dark:text-white mb-3">Aerospace Materials</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Milled from single blocks of aerospace-grade aluminum for unparalleled structural integrity and a premium, cold-to-the-touch feel.</p>
                 </div>
-                
+                <div class="bg-slate-50 dark:bg-slate-800 p-10 rounded-[2rem] border border-slate-200/50 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-indigo-500/10 hover:-translate-y-2 transition-all duration-500 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-teal-100 dark:bg-teal-500/20 text-teal-600 dark:text-teal-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-3xl">ac_unit</span>
+                    </div>
+                    <h3 class="font-headline font-black text-xl text-slate-900 dark:text-white mb-3">Advanced Thermals</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Whisper-quiet vapor chamber cooling systems ensure your hardware stays frost-level cool, even during heavy 4K rendering or compiling.</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800 p-10 rounded-[2rem] border border-slate-200/50 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-indigo-500/10 hover:-translate-y-2 transition-all duration-500 group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-3xl">cleaning_services</span>
+                    </div>
+                    <h3 class="font-headline font-black text-xl text-slate-900 dark:text-white mb-3">Zero Bloatware</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">We ship pure, untouched operating systems. No pre-installed trials, no intrusive antivirus pop-ups. Just pure, unadulterated speed.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <?php if($home_latest_product_on_off == 1): ?>
-    <section class="py-24 px-6 md:px-12 bg-white dark:bg-slate-900 transition-colors duration-300">
-        <div class="max-w-[1440px] mx-auto">
-            <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6" data-aos="fade-up">
+    <section class="py-24 px-6 md:px-12 bg-[#faf8ff] dark:bg-slate-950 transition-colors duration-500">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6" data-aos="fade-up">
                 <div>
-                    <span class="text-primary dark:text-indigo-400 font-bold text-xs tracking-[0.3em] uppercase mb-4 block">Just Dropped</span>
-                    <h2 class="font-headline text-4xl font-black text-surfaceDark dark:text-white tracking-tight">
+                    <span class="text-blue-600 dark:text-indigo-400 font-black text-[10px] tracking-[0.3em] uppercase mb-4 block">Just Dropped</span>
+                    <h2 class="font-headline text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
                         <?php echo empty($latest_product_title) ? 'NEW ARRIVALS' : strtoupper($latest_product_title); ?>
                     </h2>
                 </div>
+                <a href="product.php" class="font-headline font-bold text-sm tracking-widest uppercase text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors flex items-center gap-2">View All <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -88,57 +134,71 @@ foreach ($result as $row) {
                 $delay = 0;                           
                 foreach ($result as $row) {
                 ?>
-                <div class="group cursor-pointer" data-aos="fade-up" data-aos-delay="<?php echo $delay; ?>" onclick="window.location.href='product.php?id=<?php echo $row['p_id']; ?>';">
-                    <div class="relative bg-surface dark:bg-slate-800 rounded-[2rem] aspect-square mb-6 overflow-hidden flex items-center justify-center p-6 border border-slate-100 dark:border-slate-700/50 group-hover:shadow-xl dark:group-hover:shadow-indigo-500/10 transition-all duration-300">
-                        <img class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-500" src="assets/uploads/<?php echo $row['p_featured_photo']; ?>" alt="<?php echo $row['p_name']; ?>"/>
+                <div class="group relative bg-white dark:bg-slate-800 rounded-[2rem] p-6 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 dark:hover:shadow-indigo-500/10 hover:-translate-y-2 transition-all duration-500 flex flex-col" data-aos="fade-up" data-aos-delay="<?php echo $delay; ?>">
+                    
+                    <div class="relative bg-slate-50 dark:bg-slate-900/50 rounded-xl aspect-[4/3] mb-6 overflow-hidden flex items-center justify-center p-4 border border-slate-100 dark:border-slate-700/50">
+                        <a href="product.php?id=<?php echo $row['p_id']; ?>" class="w-full h-full flex items-center justify-center">
+                            <img class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-700" src="assets/uploads/<?php echo $row['p_featured_photo']; ?>" alt="<?php echo htmlspecialchars($row['p_name']); ?>"/>
+                        </a>
+                        
                         <?php if($row['p_qty'] == 0): ?>
-                            <div class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Sold Out</div>
+                            <div class="absolute top-3 left-3 bg-red-500 text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md">Sold Out</div>
                         <?php else: ?>
-                            <div class="absolute top-4 left-4 bg-primary dark:bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">New</div>
+                            <div class="absolute top-3 left-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md">New</div>
+                        <?php endif; ?>
+                        
+                        <?php if($row['p_qty'] > 0): ?>
+                        <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                            <a href="product.php?id=<?php echo $row['p_id']; ?>" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 hover:scale-110 transition-all shadow-lg">
+                                <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            </a>
+                        </div>
                         <?php endif; ?>
                     </div>
-                    <h3 class="font-headline font-bold text-lg text-surfaceDark dark:text-white leading-tight mb-1 truncate group-hover:text-primary dark:group-hover:text-indigo-400 transition-colors">
-                        <?php echo $row['p_name']; ?>
-                    </h3>
-                    <div class="text-lg font-black text-textMuted dark:text-slate-400">
-                        ₹<?php echo $row['p_current_price']; ?>
+                    
+                    <div class="flex-grow flex flex-col">
+                        <h3 class="font-headline font-bold text-lg text-slate-900 dark:text-white leading-tight mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-indigo-400 transition-colors">
+                            <a href="product.php?id=<?php echo $row['p_id']; ?>"><?php echo htmlspecialchars($row['p_name']); ?></a>
+                        </h3>
+                        <div class="mt-auto pt-4 flex items-end justify-between">
+                            <div class="text-2xl font-headline font-black text-slate-900 dark:text-white">
+                                ₹<?php echo number_format($row['p_current_price']); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <?php 
-                $delay += 100;
-                } ?>
+                <?php $delay += 100; } ?>
             </div>
         </div>
     </section>
     <?php endif; ?>
 
-    <section class="py-12 px-6 md:px-12 bg-white dark:bg-slate-900 transition-colors duration-300">
-        <div class="max-w-[1440px] mx-auto relative rounded-[2.5rem] overflow-hidden bg-surfaceDark min-h-[500px] flex items-center" data-aos="zoom-in" data-aos-duration="1000">
-            <div class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-40 mix-blend-overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEXZHDJoC3nymERWwvAalQJ2jgOtGryxiVxTUXiH8h8hbQhiDNjyobYFxWTSeake0qqfpjX9CeC5Ax-12i361TB52o3iN01r31Qvd1s2eDY7rzmCYsKDgfTr9B9TXhuBqcbS8IoGctBwu8qyHhYb0xiSqSSlZVJEFSa6bv2NYzMs5-akEhBzjuTxlYmRvoVrFNalioIsRLJzfs9f8n5rLxhAJGS228_xVHZmkt2qwcV5Kpt9wBlHq8z7UGt7i3ArjHwO0JIGt9Nc7V');"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-surfaceDark via-surfaceDark/90 to-transparent"></div>
+    <section class="py-12 px-6 md:px-12 bg-[#faf8ff] dark:bg-slate-950 transition-colors duration-500">
+        <div class="max-w-[1400px] mx-auto relative rounded-[3rem] overflow-hidden bg-slate-900 min-h-[500px] flex items-center shadow-2xl" data-aos="zoom-in" data-aos-duration="1000">
+            <div class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-50 mix-blend-overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEXZHDJoC3nymERWwvAalQJ2jgOtGryxiVxTUXiH8h8hbQhiDNjyobYFxWTSeake0qqfpjX9CeC5Ax-12i361TB52o3iN01r31Qvd1s2eDY7rzmCYsKDgfTr9B9TXhuBqcbS8IoGctBwu8qyHhYb0xiSqSSlZVJEFSa6bv2NYzMs5-akEhBzjuTxlYmRvoVrFNalioIsRLJzfs9f8n5rLxhAJGS228_xVHZmkt2qwcV5Kpt9wBlHq8z7UGt7i3ArjHwO0JIGt9Nc7V');"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-transparent"></div>
             
             <div class="relative z-10 px-8 md:px-20 max-w-3xl text-white" data-aos="fade-up" data-aos-delay="300">
-                <span class="text-primary dark:text-indigo-400 font-bold tracking-[0.4em] uppercase text-xs mb-6 block">Signature Collection</span>
-                <h2 class="text-5xl md:text-7xl font-headline font-black mb-6 tracking-tighter leading-tight">THE SMART<br>HOME REVOLUTION</h2>
-                <p class="text-lg md:text-xl text-slate-300 mb-10 font-medium max-w-xl">Upgrade your living space with intelligent, energy-efficient precision. Experience seamless automation designed around you.</p>
-                <button class="bg-white text-surfaceDark px-10 py-4 rounded-full font-headline font-bold text-sm tracking-widest uppercase hover:bg-slate-100 hover:scale-105 transition-all shadow-xl active:scale-95">
+                <span class="text-teal-400 font-black tracking-[0.4em] uppercase text-[10px] mb-6 block">Signature Collection</span>
+                <h2 class="text-5xl md:text-7xl font-headline font-black mb-6 tracking-tighter leading-tight text-white">THE SMART<br>HOME REVOLUTION</h2>
+                <p class="text-lg md:text-xl text-slate-300 mb-10 font-medium max-w-xl leading-relaxed">Upgrade your living space with intelligent, energy-efficient precision. Experience seamless automation designed around you.</p>
+                <a href="product.php" class="bg-white text-slate-900 px-10 py-4 rounded-full font-headline font-bold text-sm tracking-widest uppercase hover:bg-slate-100 hover:scale-105 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)] active:scale-95 inline-block">
                     Explore Ecosystem
-                </button>
+                </a>
             </div>
         </div>
     </section>
 
     <?php if($home_featured_product_on_off == 1): ?>
-    <section class="py-24 px-6 md:px-12 bg-white dark:bg-slate-900 transition-colors duration-300 border-t border-slate-100 dark:border-slate-800/50">
-        <div class="max-w-[1440px] mx-auto">
-            <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6" data-aos="fade-up">
+    <section class="py-24 px-6 md:px-12 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 transition-colors duration-500">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6" data-aos="fade-up">
                 <div>
-                    <span class="text-primary dark:text-indigo-400 font-bold text-xs tracking-[0.3em] uppercase mb-4 block">Curated Selection</span>
-                    <h2 class="font-headline text-4xl md:text-5xl font-black text-surfaceDark dark:text-white tracking-tight">
+                    <span class="text-blue-600 dark:text-indigo-400 font-black text-[10px] tracking-[0.3em] uppercase mb-4 block">Our Pride</span>
+                    <h2 class="font-headline text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
                         <?php echo empty($featured_product_title) ? 'ELITE INSTRUMENTS' : strtoupper($featured_product_title); ?>
                     </h2>
                 </div>
-                <a href="product-category.php" class="font-headline font-bold text-sm tracking-widest uppercase text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors border-b border-transparent hover:border-primary dark:hover:border-white pb-1">View All Products</a>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -149,78 +209,59 @@ foreach ($result as $row) {
                 $delay = 0;                           
                 foreach ($result as $row) {
                 ?>
-                <div class="group bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl p-5 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.15)] hover:-translate-y-2 relative flex flex-col" data-aos="fade-up" data-aos-delay="<?php echo $delay; ?>">
+                <div class="group relative bg-slate-50 dark:bg-slate-800 rounded-[2rem] p-6 border border-slate-200/50 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-indigo-500/10 hover:-translate-y-2 transition-all duration-500 flex flex-col" data-aos="fade-up" data-aos-delay="<?php echo $delay; ?>">
                     
-                    <div class="aspect-[4/3] bg-surface dark:bg-slate-900/50 rounded-2xl mb-6 overflow-hidden relative flex items-center justify-center">
-                        <a href="product.php?id=<?php echo $row['p_id']; ?>">
-                            <img class="w-full h-full object-contain p-6 mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-700 ease-out" src="assets/uploads/<?php echo $row['p_featured_photo']; ?>" alt="<?php echo $row['p_name']; ?>"/>
+                    <div class="relative bg-white dark:bg-slate-900/80 rounded-xl aspect-[4/3] mb-6 overflow-hidden flex items-center justify-center p-4 border border-slate-100 dark:border-slate-700/50 shadow-sm">
+                        <a href="product.php?id=<?php echo $row['p_id']; ?>" class="w-full h-full flex items-center justify-center">
+                            <img class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-700" src="assets/uploads/<?php echo $row['p_featured_photo']; ?>" alt="<?php echo htmlspecialchars($row['p_name']); ?>"/>
                         </a>
                         
+                        <div class="absolute top-3 left-3 bg-[#0052CC] text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md">Featured</div>
+                        
                         <?php if($row['p_qty'] > 0): ?>
-                            <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm text-[10px] font-bold text-surfaceDark dark:text-white tracking-widest uppercase rounded-full shadow-sm border border-slate-200 dark:border-slate-600">Available</div>
-                        <?php else: ?>
-                            <div class="absolute top-4 right-4 px-3 py-1 bg-red-500 text-[10px] font-bold text-white tracking-widest uppercase rounded-full shadow-sm">Sold Out</div>
+                        <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                            <a href="product.php?id=<?php echo $row['p_id']; ?>" class="w-10 h-10 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full flex items-center justify-center hover:scale-110 transition-all shadow-lg">
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                            </a>
+                        </div>
                         <?php endif; ?>
                     </div>
                     
                     <div class="flex-grow flex flex-col">
-                        <h3 class="font-headline font-bold text-lg text-surfaceDark dark:text-white leading-tight mb-2 line-clamp-2">
-                            <a href="product.php?id=<?php echo $row['p_id']; ?>" class="hover:text-primary dark:hover:text-indigo-400 transition-colors"><?php echo $row['p_name']; ?></a>
+                        <h3 class="font-headline font-bold text-lg text-slate-900 dark:text-white leading-tight mb-2 line-clamp-2 group-hover:text-[#0052CC] dark:group-hover:text-[#4da3ff] transition-colors">
+                            <a href="product.php?id=<?php echo $row['p_id']; ?>"><?php echo htmlspecialchars($row['p_name']); ?></a>
                         </h3>
-                        
-                        <div class="mt-auto pt-6 flex items-end justify-between">
-                            <div>
-                                <?php if($row['p_old_price'] != ''): ?>
-                                    <div class="text-xs font-semibold line-through text-slate-400 dark:text-slate-500 mb-1">₹<?php echo $row['p_old_price']; ?></div>
-                                <?php endif; ?>
-                                <div class="text-2xl font-headline font-black text-surfaceDark dark:text-white">
-                                    ₹<?php echo $row['p_current_price']; ?>
-                                </div>
-                            </div>
-                            
-                            <?php if($row['p_qty'] > 0): ?>
-                                <a href="product.php?id=<?php echo $row['p_id']; ?>" class="h-12 w-12 bg-surfaceDark dark:bg-slate-700 text-white rounded-full flex items-center justify-center hover:bg-primary dark:hover:bg-indigo-500 active:scale-90 transition-all shadow-md group-hover:shadow-lg">
-                                    <span class="material-symbols-outlined text-xl" data-icon="add_shopping_cart">add_shopping_cart</span>
-                                </a>
+                        <div class="mt-auto pt-4 flex flex-col">
+                            <?php if($row['p_old_price'] != ''): ?>
+                                <span class="text-xs font-bold text-slate-400 line-through mb-0.5">₹<?php echo number_format($row['p_old_price']); ?></span>
                             <?php endif; ?>
+                            <span class="text-2xl font-headline font-black text-slate-900 dark:text-white">₹<?php echo number_format($row['p_current_price']); ?></span>
                         </div>
                     </div>
                 </div>
-                <?php 
-                $delay += 100;
-                } ?>
+                <?php $delay += 100; } ?>
             </div>
         </div>
     </section>
     <?php endif; ?>
 
     <?php if($home_service_on_off == 1): ?>
-    <section class="py-24 px-6 md:px-12 bg-surface dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        <div class="max-w-[1440px] mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+    <section class="py-20 px-6 md:px-12 bg-[#faf8ff] dark:bg-slate-950 border-t border-slate-200/50 dark:border-slate-800 transition-colors duration-500">
+        <div class="max-w-[1200px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-center">
                 <?php
                 $statement = $pdo->prepare("SELECT * FROM tbl_service LIMIT 3");
                 $statement->execute();
                 $result = $statement->fetchAll(PDO::FETCH_ASSOC);  
-                
-                // Fallback elegant icons for the tech store aesthetic
                 $icons = ['local_shipping', 'support_agent', 'security']; 
-                
                 foreach ($result as $index => $row) {
                 ?>
                 <div class="flex flex-col items-center group" data-aos="fade-up" data-aos-delay="<?php echo $index * 150; ?>">
-                    <div class="w-20 h-20 rounded-3xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center mb-6 shadow-lg group-hover:bg-primary dark:group-hover:bg-indigo-600 group-hover:text-white text-surfaceDark dark:text-white transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-primary/20 dark:group-hover:shadow-indigo-500/20">
-                        <?php if($row['photo'] != ''): ?>
-                            <img src="assets/uploads/<?php echo $row['photo']; ?>" 
-                                 class="w-10 h-10 object-contain dark:invert dark:brightness-0 group-hover:invert group-hover:brightness-0 transition-all" 
-                                 alt="<?php echo $row['title']; ?>"
-                                 onerror="this.onerror=null; this.outerHTML='<span class=\'material-symbols-outlined text-4xl\'><?php echo $icons[$index % 3]; ?></span>';">
-                        <?php else: ?>
-                            <span class="material-symbols-outlined text-4xl"><?php echo $icons[$index % 3]; ?></span>
-                        <?php endif; ?>
+                    <div class="w-20 h-20 rounded-full bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center mb-6 text-slate-600 dark:text-slate-400 group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-indigo-500 transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/20">
+                        <span class="material-symbols-outlined text-3xl"><?php echo $icons[$index % 3]; ?></span>
                     </div>
-                    <h4 class="text-xl font-headline font-bold text-surfaceDark dark:text-white tracking-tight mb-3"><?php echo $row['title']; ?></h4>
-                    <p class="text-textMuted dark:text-slate-400 leading-relaxed max-w-sm"><?php echo nl2br($row['content']); ?></p>
+                    <h4 class="text-lg font-headline font-bold text-slate-900 dark:text-white tracking-tight mb-3"><?php echo $row['title']; ?></h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xs"><?php echo nl2br($row['content']); ?></p>
                 </div>
                 <?php } ?>
             </div>

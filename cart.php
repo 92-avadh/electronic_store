@@ -90,22 +90,24 @@ if(isset($_POST['form1'])) {
                     <section class="xl:col-span-8 space-y-6">
                         <?php
                         $table_total_price = 0;
-                        $i=0;
-                        foreach($_SESSION['cart_p_id'] as $key => $value) { $i++; $arr_cart_p_id[$i] = $value; }
-                        $i=0;
-                        foreach($_SESSION['cart_p_qty'] as $key => $value) { $i++; $arr_cart_p_qty[$i] = $value; }
-                        $i=0;
-                        foreach($_SESSION['cart_p_current_price'] as $key => $value) { $i++; $arr_cart_p_current_price[$i] = $value; }
-                        $i=0;
-                        foreach($_SESSION['cart_p_name'] as $key => $value) { $i++; $arr_cart_p_name[$i] = $value; }
-                        $i=0;
-                        foreach($_SESSION['cart_p_featured_photo'] as $key => $value) { $i++; $arr_cart_p_featured_photo[$i] = $value; }
+                        
+                        $i=0; foreach($_SESSION['cart_p_id'] as $key => $value) { $i++; $arr_cart_p_id[$i] = $value; }
+                        // Ensure arrays fetch properly to prevent data mismatch during delete
+                        $i=0; if(isset($_SESSION['cart_size_id'])) { foreach($_SESSION['cart_size_id'] as $key => $value) { $i++; $arr_cart_size_id[$i] = $value; } }
+                        $i=0; if(isset($_SESSION['cart_size_name'])) { foreach($_SESSION['cart_size_name'] as $key => $value) { $i++; $arr_cart_size_name[$i] = $value; } }
+                        $i=0; if(isset($_SESSION['cart_color_id'])) { foreach($_SESSION['cart_color_id'] as $key => $value) { $i++; $arr_cart_color_id[$i] = $value; } }
+                        $i=0; if(isset($_SESSION['cart_color_name'])) { foreach($_SESSION['cart_color_name'] as $key => $value) { $i++; $arr_cart_color_name[$i] = $value; } }
+                        
+                        $i=0; foreach($_SESSION['cart_p_qty'] as $key => $value) { $i++; $arr_cart_p_qty[$i] = $value; }
+                        $i=0; foreach($_SESSION['cart_p_current_price'] as $key => $value) { $i++; $arr_cart_p_current_price[$i] = $value; }
+                        $i=0; foreach($_SESSION['cart_p_name'] as $key => $value) { $i++; $arr_cart_p_name[$i] = $value; }
+                        $i=0; foreach($_SESSION['cart_p_featured_photo'] as $key => $value) { $i++; $arr_cart_p_featured_photo[$i] = $value; }
                         ?>
                         
                         <?php for($i=1; $i<=count($arr_cart_p_id); $i++): ?>
                             <div class="group bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl flex flex-col md:flex-row gap-8 transition-all hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.15)] border border-slate-100 dark:border-slate-700/50" data-aos="fade-up" data-aos-delay="<?php echo $i * 50; ?>">
                                 
-                                <div class="w-full md:w-48 h-48 rounded-2xl overflow-hidden bg-surface dark:bg-slate-900 shrink-0 p-4 relative">
+                                <div class="w-full md:w-48 h-48 rounded-2xl overflow-hidden bg-surface dark:bg-slate-900 shrink-0 p-4 relative border border-slate-100 dark:border-slate-700">
                                     <img src="assets/uploads/<?php echo $arr_cart_p_featured_photo[$i]; ?>" alt="<?php echo $arr_cart_p_name[$i]; ?>" class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-700">
                                 </div>
                                 
@@ -116,6 +118,17 @@ if(isset($_POST['form1'])) {
                                                 <?php echo $arr_cart_p_name[$i]; ?>
                                             </h3>
                                             <p class="text-xs font-bold text-textMuted dark:text-slate-400 tracking-widest uppercase">Base Price: ₹<?php echo $arr_cart_p_current_price[$i]; ?></p>
+                                            
+                                            <?php 
+                                            $s_name = isset($arr_cart_size_name[$i]) ? $arr_cart_size_name[$i] : ''; 
+                                            $c_name = isset($arr_cart_color_name[$i]) ? $arr_cart_color_name[$i] : ''; 
+                                            if ($s_name != '' || $c_name != ''): 
+                                            ?>
+                                            <div class="flex gap-2 mt-2">
+                                                <?php if($s_name != ''): ?><span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Size: <?php echo $s_name; ?></span><?php endif; ?>
+                                                <?php if($c_name != ''): ?><span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Color: <?php echo $c_name; ?></span><?php endif; ?>
+                                            </div>
+                                            <?php endif; ?>
                                         </div>
                                         <?php $row_total_price = $arr_cart_p_current_price[$i] * $arr_cart_p_qty[$i]; $table_total_price += $row_total_price; ?>
                                         <p class="font-headline text-2xl font-black text-primary dark:text-indigo-400 md:text-right">₹<?php echo number_format($row_total_price, 2); ?></p>
@@ -129,7 +142,11 @@ if(isset($_POST['form1'])) {
                                             <input type="number" class="w-16 bg-transparent border-none text-center font-headline font-bold text-lg focus:ring-0 text-surfaceDark dark:text-white p-0" step="1" min="1" max="" name="product_qty[]" value="<?php echo $arr_cart_p_qty[$i]; ?>" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
                                         </div>
                                         
-                                        <a href="cart-item-delete.php?id=<?php echo $arr_cart_p_id[$i]; ?>&size=&color=" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-500 hover:text-red-600 transition-colors bg-red-50 dark:bg-red-500/10 dark:hover:bg-red-500/20 px-4 py-3 rounded-xl" onclick="return confirmDelete();">
+                                        <?php 
+                                        $s_id = isset($arr_cart_size_id[$i]) ? $arr_cart_size_id[$i] : ''; 
+                                        $c_id = isset($arr_cart_color_id[$i]) ? $arr_cart_color_id[$i] : ''; 
+                                        ?>
+                                        <a href="cart-item-delete.php?id=<?php echo $arr_cart_p_id[$i]; ?>&size=<?php echo $s_id; ?>&color=<?php echo $c_id; ?>" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-500 hover:text-red-600 transition-colors bg-red-50 dark:bg-red-500/10 dark:hover:bg-red-500/20 px-4 py-3 rounded-xl" onclick="return confirm('Are you sure you want to remove this item?');">
                                             <span class="material-symbols-outlined text-[18px]">delete</span>
                                             <span class="hidden sm:inline">Remove</span>
                                         </a>
@@ -190,12 +207,12 @@ if(isset($_POST['form1'])) {
                         <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm cursor-pointer group" onclick="window.location.href='product-category.php';">
                             <p class="font-body text-[10px] font-black uppercase tracking-widest text-primary dark:text-indigo-400 mb-4">Complete Your Setup</p>
                             <div class="flex gap-4 items-center">
-                                <div class="w-16 h-16 bg-surface dark:bg-slate-900 rounded-xl p-3 shrink-0">
-                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMB4tpUBlvJX1XJRR5iNucHh8ss_47oZKucARh25rKa-EDmr5PfRn2DGQp4WcQzJCQb73Wt7-Ex6STAjkeC2wgIMX_lBw0Efp7jasOcYm1z6NBqCp3iS6wDHJEEhVfdhNsjVIhKyJo0ftYhzH2_AXbXWIYIu1ZajIvLSdF_UZP6EorYvi9Re6VETHHyzq94vmgwda5UX6WQsEwTaMl6vYRFAXOUnpcTH7AU3zcSy6tOPlF43REDlPvtZFWhXJAOUjvwxP0Q-mDCwb0" class="w-full h-full object-contain dark:invert mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform" alt="Accessory">
+                                <div class="w-16 h-16 bg-surface dark:bg-slate-900 rounded-xl p-3 shrink-0 border border-slate-100 dark:border-slate-700">
+                                    <span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600 w-full h-full flex items-center justify-center group-hover:scale-110 transition-transform">inventory_2</span>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-bold text-surfaceDark dark:text-white line-clamp-1">Curator Point Precision Mouse</p>
-                                    <p class="text-xs text-textMuted dark:text-slate-400 font-bold mt-1">View Peripherals</p>
+                                    <p class="text-sm font-bold text-surfaceDark dark:text-white line-clamp-1">Explore Peripherals</p>
+                                    <p class="text-xs text-textMuted dark:text-slate-400 font-bold mt-1">View Collection</p>
                                 </div>
                                 <span class="ml-auto material-symbols-outlined text-primary dark:text-indigo-400 group-hover:translate-x-1 transition-transform">arrow_forward</span>
                             </div>

@@ -1,59 +1,43 @@
-<?php 
-// Get the current page name to automatically apply the blue "Active" highlight
-$cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1); 
+<?php
+$cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 ?>
 
-<aside class="fixed left-0 top-0 h-full w-64 z-50 bg-[#faf8ff] flex flex-col p-4 border-r border-slate-200/60 font-['Inter'] text-sm font-medium tracking-wide">
+<aside class="fixed inset-y-0 left-0 bg-white dark:bg-slate-800 shadow-[10px_0_40px_rgba(19,27,46,0.04)] dark:shadow-none w-64 z-50 flex flex-col border-r border-slate-100 dark:border-slate-700 transition-colors duration-200">
     
-    <div class="flex items-center space-x-3 mb-10 mt-2 px-2">
-        <div class="w-12 h-12 bg-[#0052CC] rounded-xl flex items-center justify-center text-white shadow-md shadow-[#0052CC]/20 flex-shrink-0">
-            <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">view_in_ar</span>
-        </div>
-        <div class="flex flex-col">
-            <span class="font-['Manrope'] text-lg leading-tight font-extrabold text-[#131b2e]">Curator Tech</span>
-            <span class="text-[9px] leading-tight text-slate-500 uppercase tracking-widest font-bold mt-1">Digital Curator<br>Admin</span>
-        </div>
+    <div class="h-20 flex items-center px-8 border-b border-slate-100 dark:border-slate-700 transition-colors duration-200">
+        <a href="index.php" class="flex items-center gap-3 group">
+            <div class="w-8 h-8 bg-[#0052CC] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#0052CC]/30 group-hover:scale-105 transition-transform">S</div>
+            <span class="font-headline font-extrabold text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-[#0052CC] dark:group-hover:text-[#4da3ff] transition-colors">Slate</span>
+        </a>
     </div>
 
-    <nav class="flex-1 space-y-1.5 px-2">
+    <div class="flex-grow overflow-y-auto py-6 px-4 space-y-1 table-scroll">
+        <p class="px-4 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 mt-4">Core</p>
         
-        <a href="index.php" class="flex items-center space-x-4 px-4 py-3.5 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'index.php') ? 'bg-[#0052CC] text-white shadow-lg shadow-[#0052CC]/30' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'; ?>">
-            <span class="material-symbols-outlined text-[22px]">grid_view</span>
-            <span class="font-semibold">Overview</span>
+        <a href="index.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'index.php') ? 'bg-[#0052CC]/10 dark:bg-[#0052CC]/20 text-[#0052CC] dark:text-[#4da3ff] font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 font-semibold'; ?>">
+            <span class="material-symbols-outlined text-[20px]">dashboard</span><span>Dashboard</span>
+        </a>
+        <a href="order.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'order.php') ? 'bg-[#0052CC]/10 dark:bg-[#0052CC]/20 text-[#0052CC] dark:text-[#4da3ff] font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 font-semibold'; ?>">
+            <span class="material-symbols-outlined text-[20px]">local_shipping</span><span>Orders</span>
+        </a>
+        <a href="customer.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'customer.php') ? 'bg-[#0052CC]/10 dark:bg-[#0052CC]/20 text-[#0052CC] dark:text-[#4da3ff] font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 font-semibold'; ?>">
+            <span class="material-symbols-outlined text-[20px]">group</span><span>Customers</span>
         </a>
 
-        <a href="settings.php" class="flex items-center space-x-4 px-4 py-3.5 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'settings.php') ? 'bg-[#0052CC] text-white shadow-lg shadow-[#0052CC]/30' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'; ?>">
-            <span class="material-symbols-outlined text-[22px]">settings</span>
-            <span class="font-semibold">Settings</span>
+        <p class="px-4 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 mt-6">Inventory</p>
+        <a href="product.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'product.php' || $cur_page == 'product-add.php' || $cur_page == 'product-edit.php') ? 'bg-[#0052CC]/10 dark:bg-[#0052CC]/20 text-[#0052CC] dark:text-[#4da3ff] font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 font-semibold'; ?>">
+            <span class="material-symbols-outlined text-[20px]">inventory_2</span><span>Products</span>
+        </a>
+        <a href="category.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'category.php') ? 'bg-[#0052CC]/10 dark:bg-[#0052CC]/20 text-[#0052CC] dark:text-[#4da3ff] font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 font-semibold'; ?>">
+            <span class="material-symbols-outlined text-[20px]">category</span><span>Categories</span>
+        </a>
+        <a href="attributes.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'attributes.php') ? 'bg-[#0052CC]/10 dark:bg-[#0052CC]/20 text-[#0052CC] dark:text-[#4da3ff] font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 font-semibold'; ?>">
+            <span class="material-symbols-outlined text-[20px]">straighten</span><span>Attributes</span>
         </a>
 
-        <a href="product.php" class="flex items-center space-x-4 px-4 py-3.5 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'product.php' || $cur_page == 'product-add.php' || $cur_page == 'product-edit.php') ? 'bg-[#0052CC] text-white shadow-lg shadow-[#0052CC]/30' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'; ?>">
-            <span class="material-symbols-outlined text-[22px]">inventory_2</span>
-            <span class="font-semibold">Products</span>
-        </a>
-
-        <a href="order.php" class="flex items-center space-x-4 px-4 py-3.5 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'order.php') ? 'bg-[#0052CC] text-white shadow-lg shadow-[#0052CC]/30' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'; ?>">
-            <span class="material-symbols-outlined text-[22px]">payments</span>
-            <span class="font-semibold">Order Management</span>
-        </a>
-
-        <a href="customer.php" class="flex items-center space-x-4 px-4 py-3.5 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'customer.php') ? 'bg-[#0052CC] text-white shadow-lg shadow-[#0052CC]/30' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'; ?>">
-            <span class="material-symbols-outlined text-[22px]">group</span>
-            <span class="font-semibold">Customers</span>
-        </a>
-
-        <a href="top-category.php" class="flex items-center space-x-4 px-4 py-3.5 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'top-category.php' || $cur_page == 'mid-category.php' || $cur_page == 'end-category.php') ? 'bg-[#0052CC] text-white shadow-lg shadow-[#0052CC]/30' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'; ?>">
-            <span class="material-symbols-outlined text-[22px]">category</span>
-            <span class="font-semibold">Categories</span>
-        </a>
-
-    </nav>
-
-    <div class="px-4 pb-6">
-        <div class="w-full h-[1px] bg-slate-200/60 mb-6"></div>
-        <a href="logout.php" class="flex items-center justify-center space-x-2 px-4 py-3.5 bg-red-50/80 text-red-600 rounded-xl font-bold hover:bg-red-100 transition-colors">
-            <span class="material-symbols-outlined text-[20px]">logout</span>
-            <span>Logout</span>
+        <p class="px-4 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 mt-6">System</p>
+        <a href="settings.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'settings.php') ? 'bg-[#0052CC]/10 dark:bg-[#0052CC]/20 text-[#0052CC] dark:text-[#4da3ff] font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50 font-semibold'; ?>">
+            <span class="material-symbols-outlined text-[20px]">settings</span><span>Global Settings</span>
         </a>
     </div>
 </aside>
