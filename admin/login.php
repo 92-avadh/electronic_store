@@ -40,7 +40,7 @@ if(isset($_POST['form1'])) {
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Admin Access | TechPulse  SLATE</title>
+    <title>Admin Access | Electronic store  SLATE</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -125,7 +125,7 @@ if(isset($_POST['form1'])) {
     
     <header class="sticky top-0 z-50 bg-[#faf8ff]/70 backdrop-blur-xl flex justify-center items-center w-full py-8 px-8">
         <div class="flex items-center gap-2">
-            <span class="text-xl font-black text-[#131b2e] tracking-[0.05em] uppercase headline-font">TechPulse  SLATE</span>
+            <span class="text-xl font-black text-[#131b2e] tracking-[0.05em] uppercase headline-font">Electronic store  SLATE</span>
             <div class="h-4 w-[1px] bg-outline-variant mx-2"></div>
             <span class="text-xs font-bold tracking-widest text-primary uppercase headline-font">Admin Panel</span>
         </div>
@@ -165,7 +165,7 @@ if(isset($_POST['form1'])) {
                         <label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase ml-1">Work Email</label>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-sm">alternate_email</span>
-                            <input name="email" class="w-full pl-11 pr-4 py-3.5 bg-surface-container-lowest border-none rounded-lg focus:ring-2 focus:ring-surface-tint/20 transition-all text-sm text-on-surface placeholder:text-outline/50 outline-none" placeholder="name@TechPulse slate.tech" type="email" autofocus autocomplete="off" required/>
+                            <input name="email" class="w-full pl-11 pr-4 py-3.5 bg-surface-container-lowest border-none rounded-lg focus:ring-2 focus:ring-surface-tint/20 transition-all text-sm text-on-surface placeholder:text-outline/50 outline-none" placeholder="name@Electronic store slate.tech" type="email" autofocus autocomplete="off" required/>
                         </div>
                     </div>
                     
@@ -214,7 +214,7 @@ if(isset($_POST['form1'])) {
             <span class="text-slate-400 font-['Inter'] text-xs tracking-wider uppercase">Terms of Service</span>
             <span class="text-slate-400 font-['Inter'] text-xs tracking-wider uppercase">System Status</span>
         </div>
-        <p class="text-slate-400 font-['Inter'] text-xs tracking-wider uppercase">© 2024 TechPulse Admin. PRECISION INSTRUMENTATION.</p>
+        <p class="text-slate-400 font-['Inter'] text-xs tracking-wider uppercase">© 2024 Electronic store Admin. PRECISION INSTRUMENTATION.</p>
     </footer>
 </body>
 </html>

@@ -66,7 +66,7 @@ $customer = $statement->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Profile Settings | TechPulse  Slate</title>
+    <title>Profile Settings | Electronic store  Slate</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -92,7 +92,7 @@ $customer = $statement->fetch(PDO::FETCH_ASSOC);
 
     <nav class="fixed top-0 w-full z-50 bg-[#faf8ff]/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800">
         <div class="flex justify-between items-center px-8 h-16 max-w-7xl mx-auto">
-            <a href="index.php" class="text-xl font-bold tracking-tighter text-slate-900 dark:text-slate-50 font-headline">TechPulse  Slate</a>
+            <a href="index.php" class="text-xl font-bold tracking-tighter text-slate-900 dark:text-slate-50 font-headline">Electronic store  Slate</a>
             <div class="hidden md:flex items-center space-x-8">
                 <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-all font-semibold" href="product.php">Shop</a>
                 <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-all font-semibold" href="contact.php">Support</a>
@@ -234,8 +234,8 @@ $customer = $statement->fetch(PDO::FETCH_ASSOC);
     <footer class="w-full border-t border-slate-200 dark:border-slate-800 bg-[#f2f3ff] dark:bg-slate-900">
         <div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-7xl mx-auto font-['Inter'] text-sm">
             <div class="mb-8 md:mb-0">
-                <div class="text-lg font-bold text-slate-900 dark:text-slate-50 font-headline mb-2">TechPulse  Slate</div>
-                <p class="text-slate-500 dark:text-slate-400">© <?php echo date('Y'); ?> TechPulse  Slate. Precision Engineering.</p>
+                <div class="text-lg font-bold text-slate-900 dark:text-slate-50 font-headline mb-2">Electronic store  Slate</div>
+                <p class="text-slate-500 dark:text-slate-400">© <?php echo date('Y'); ?> Electronic store  Slate. Precision Engineering.</p>
             </div>
             <div class="flex gap-8">
                 <a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 transition-colors font-bold" href="#">Privacy Policy</a>

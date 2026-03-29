@@ -13,9 +13,9 @@ foreach ($result as $row) {
         <div class="md:col-span-5 pr-0 md:pr-12">
             <span class="text-2xl font-headline font-black tracking-tight text-white uppercase mb-6 block">
                 <?php if(isset($logo) && $logo != ''): ?>
-                    <img src="assets/uploads/<?php echo $logo; ?>" class="h-12 bg-white px-3 py-1.5 rounded-xl shadow-lg inline-block" alt="TechPulse">
+                    <img src="assets/uploads/<?php echo $logo; ?>" class="h-12 bg-white px-3 py-1.5 rounded-xl shadow-lg inline-block" alt="Electronic store">
                 <?php else: ?>
-                    <span class="text-primary dark:text-sky-400">Tech</span>Pulse
+                    <span class="text-primary dark:text-sky-400">Electronic</span>Store
                 <?php endif; ?>
             </span>
             <p class="text-slate-400 font-body text-sm leading-relaxed mb-8 max-w-md">

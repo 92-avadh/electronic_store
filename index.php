@@ -75,7 +75,7 @@ foreach ($result as $row) {
     <section class="py-24 px-6 md:px-12 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 transition-colors duration-500">
         <div class="max-w-[1400px] mx-auto">
             <div class="mb-16 text-center max-w-2xl mx-auto" data-aos="fade-up">
-                <span class="text-primary dark:text-sky-400 font-black text-[10px] tracking-[0.3em] uppercase mb-4 block">The TechPulse Promise</span>
+                <span class="text-primary dark:text-sky-400 font-black text-[10px] tracking-[0.3em] uppercase mb-4 block">The Electronic store Promise</span>
                 <h2 class="font-headline text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">WHY SHOP WITH US?</h2>
                 <p class="text-slate-500 dark:text-slate-400 mt-4 text-sm md:text-base font-medium">We provide a hassle-free shopping experience for all your electronic needs, backed by reliable customer service.</p>
             </div>

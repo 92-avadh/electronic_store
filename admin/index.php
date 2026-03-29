@@ -19,11 +19,16 @@ foreach ($result as $row) { $available_amount += $row['paid_amount']; }
 
 <main class="p-6 md:p-8 space-y-8 flex-grow max-w-[1600px] mx-auto w-full">
     
-    <div class="mb-2">
-        <span class="text-slate-500 font-label text-[10px] uppercase tracking-[0.2em] font-bold">Admin Portal</span>
-        <h1 class="font-headline text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Dashboard Overview</h1>
+    <div class="mb-2 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div>
+            <span class="text-slate-500 font-label text-[10px] uppercase tracking-[0.2em] font-bold">Admin Portal</span>
+            <h1 class="font-headline text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Dashboard Overview</h1>
+        </div>
+        <a href="download-dashboard-report.php" class="flex-shrink-0 px-4 py-2.5 bg-[#0052CC] hover:bg-blue-700 text-white rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2 border border-transparent">
+            <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+            <span class="hidden md:inline uppercase tracking-widest text-[10px]">Download Report</span>
+        </a>
     </div>
-
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 transition-colors duration-200">
             <div class="p-3 bg-[#0052CC]/10 dark:bg-[#0052CC]/20 rounded-lg text-[#0052CC] dark:text-[#4da3ff] w-max mb-4"><span class="material-symbols-outlined">payments</span></div>

@@ -20,11 +20,18 @@ if(isset($_POST['delete_order'])) {
                 <span class="text-slate-500 dark:text-slate-400 font-label text-[10px] uppercase tracking-[0.2em] font-bold">Admin Portal > Orders</span>
                 <h1 class="font-headline text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Order Overview</h1>
             </div>
-            <div class="relative w-full md:w-80">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
-                <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search by ID, Name, or Email..." class="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0052CC]/20 outline-none shadow-sm transition-colors">
+            
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <div class="relative w-full md:w-80">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search by ID, Name, or Email..." class="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0052CC]/20 outline-none shadow-sm transition-colors">
+                </div>
+                <a href="download-report.php" class="flex-shrink-0 px-4 py-2.5 bg-[#0052CC] hover:bg-blue-700 text-white rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2 border border-transparent">
+                    <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                    <span class="hidden md:inline uppercase tracking-widest text-[10px]">Report</span>
+                </a>
             </div>
-        </div>
+            </div>
 
         <?php if(isset($error_message) && $error_message): ?><div class="bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6 text-sm font-bold border border-red-200 dark:border-red-500/20"><?php echo $error_message; ?></div><?php endif; ?>
         <?php if(isset($success_message) && $success_message): ?><div class="bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-400 px-4 py-3 rounded-lg mb-6 text-sm font-bold border border-green-200 dark:border-green-500/20"><?php echo $success_message; ?></div><?php endif; ?>

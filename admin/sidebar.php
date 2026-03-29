@@ -10,8 +10,8 @@ $inactive_class = "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:
     
     <div class="h-20 flex items-center px-8 border-b border-slate-100 dark:border-slate-700 transition-colors duration-200">
         <a href="index.php" class="flex items-center gap-3 group">
-            <div class="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-sky-500/30 group-hover:scale-105 transition-transform">T</div>
-            <span class="font-headline font-extrabold text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors">TechPulse</span>
+            <div class="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-sky-500/30 group-hover:scale-105 transition-transform">ES</div>
+            <span class="font-headline font-extrabold text-[16px] tracking-tight text-slate-900 dark:text-white group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors">Electronic Store</span>
         </a>
     </div>
 
@@ -27,6 +27,10 @@ $inactive_class = "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:
         </a>
         <a href="customer.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'customer.php') ? $active_class : $inactive_class; ?>">
             <span class="material-symbols-outlined text-[20px]">group</span><span>Customers</span>
+        </a>
+        
+        <a href="contact-messages.php" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all duration-200 <?php echo ($cur_page == 'contact-messages.php') ? $active_class : $inactive_class; ?>">
+            <span class="material-symbols-outlined text-[20px]">mail</span><span>Inbox</span>
         </a>
 
         <div class="my-4 border-t border-slate-100 dark:border-slate-700/50"></div>

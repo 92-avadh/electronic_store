@@ -16,7 +16,7 @@
                 Empowering your <br/><span class="text-sky-300">digital life.</span>
             </h1>
             <p class="text-lg md:text-xl text-blue-100 dark:text-slate-300 max-w-2xl leading-relaxed mb-10 font-medium">
-                TechPulse was founded to make buying premium electronics simple and secure. We stock the latest devices, carefully inspected and delivered straight to your door.
+                Electronic store was founded to make buying premium electronics simple and secure. We stock the latest devices, carefully inspected and delivered straight to your door.
             </p>
             <div class="flex flex-col sm:flex-row items-center md:justify-start justify-center gap-4">
                 <a href="product-category.php" class="w-full sm:w-auto px-8 py-4 bg-white text-primary dark:text-slate-900 rounded-xl font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform shadow-xl text-center">Browse Store</a>
@@ -29,7 +29,7 @@
         <div class="max-w-[1200px] mx-auto px-6 md:px-12">
             
             <div class="text-center max-w-3xl mx-auto mb-16 md:mb-24">
-                <h2 class="text-3xl md:text-4xl font-extrabold font-headline text-slate-900 dark:text-white tracking-tight mb-4">The TechPulse Standard</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold font-headline text-slate-900 dark:text-white tracking-tight mb-4">The Electronic store Standard</h2>
                 <p class="text-slate-500 dark:text-slate-400 font-medium text-lg">We don't just sell electronics; we ensure you get the right product at the right price, with customer service you can depend on.</p>
             </div>
 
@@ -55,7 +55,7 @@
                         <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">support_agent</span>
                     </div>
                     <h3 class="text-xl font-bold font-headline text-slate-900 dark:text-white mb-3">Dedicated Support</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Having trouble with an order? Need a recommendation? Our TechPulse care team is ready to provide you with friendly, expert assistance.</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Having trouble with an order? Need a recommendation? Our Electronic store care team is ready to provide you with friendly, expert assistance.</p>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
                     <div class="p-6 relative z-10">
                         <h3 class="font-headline text-xl font-black text-slate-900 dark:text-white mb-1">Avadh Dhameliya</h3>
                         <p class="text-xs font-bold text-primary dark:text-sky-400 uppercase tracking-widest mb-3">Founder & CEO</p>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">Ensuring TechPulse remains the ultimate destination for premium electronics.</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">Ensuring Electronic store remains the ultimate destination for premium electronics.</p>
                     </div>
                 </div>
 
@@ -138,7 +138,7 @@
                 <h2 class="text-3xl md:text-5xl font-extrabold font-headline text-slate-900 dark:text-white tracking-tight leading-tight">Driven by innovation, <br>for everyone.</h2>
                 <div class="space-y-4 text-slate-500 dark:text-slate-400 leading-relaxed">
                     <p>
-                        TechPulse started as a small, local electronics retailer with a simple goal: provide people with the tech they need without the confusing jargon or pushy sales tactics. 
+                        Electronic store started as a small, local electronics retailer with a simple goal: provide people with the tech they need without the confusing jargon or pushy sales tactics. 
                     </p>
                     <p>
                         Over the years, we've grown into a comprehensive digital storefront. But our core mission remains the same—curating the absolute best gadgets, computers, and smart devices, and delivering them with unmatched customer care.

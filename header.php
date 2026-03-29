@@ -136,9 +136,9 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+
         <div class="text-2xl font-headline font-black tracking-tight text-surfaceDark dark:text-white uppercase flex items-center gap-2">
             <a href="index.php" class="hover:scale-105 transition-transform block">
                 <?php if($logo != ''): ?>
-                    <img src="assets/uploads/<?php echo $logo; ?>" alt="TechPulse" class="h-10 transition-all">
+                    <img src="assets/uploads/<?php echo $logo; ?>" alt="Electronic store" class="h-10 transition-all">
                 <?php else: ?>
-                    <span class="text-primary dark:text-sky-400">Tech</span>Pulse
+                    <span class="text-primary dark:text-sky-400">Electronic</span>Store
                 <?php endif; ?>
             </a>
         </div>
@@ -147,6 +147,7 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+
             <a class="<?php echo ($cur_page == 'index.php') ? 'text-primary dark:text-sky-400 border-b-2 border-primary dark:border-sky-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-sky-400 transition-colors'; ?>" href="index.php">Home</a>
             <a class="<?php echo ($cur_page == 'product-category.php' || $cur_page == 'product.php') ? 'text-primary dark:text-sky-400 border-b-2 border-primary dark:border-sky-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-sky-400 transition-colors'; ?>" href="product-category.php">Products</a>
             <a class="<?php echo ($cur_page == 'about.php') ? 'text-primary dark:text-sky-400 border-b-2 border-primary dark:border-sky-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-sky-400 transition-colors'; ?>" href="about.php">About Us</a>
+            <a class="<?php echo ($cur_page == 'contact.php') ? 'text-primary dark:text-sky-400 border-b-2 border-primary dark:border-sky-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-sky-400 transition-colors'; ?>" href="contact.php">Contact Us</a>
         </nav>
         
         <div class="flex items-center space-x-2 md:space-x-5">

@@ -4,7 +4,7 @@ session_start();
 include("admin/inc/config.php"); // Connect to your database automatically
 
 echo "<div style='font-family: sans-serif; max-width: 800px; margin: 50px auto; padding: 30px; background: #f8fafc; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);'>";
-echo "<h1 style='color: #0ea5e9;'>TechPulse Automated Store Setup</h1>";
+echo "<h1 style='color: #0ea5e9;'>Electronic store Automated Store Setup</h1>";
 
 // =======================================================
 // 1. AUTOMATICALLY DOWNLOAD IMAGES
