@@ -20,7 +20,7 @@ if(!isset($_SESSION['user'])) {
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Silicon Slate Admin</title>
+    <title>TechPulse Admin</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -68,7 +68,7 @@ if(!isset($_SESSION['user'])) {
     <div class="lg:ml-64 min-h-screen flex flex-col relative">
         
         <header class="w-full sticky top-0 z-40 bg-[#faf8ff]/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-8 h-20 border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm transition-colors duration-200">
-            <h1 class="font-bold tracking-tight text-xl hidden md:block">Silicon Slate Admin</h1>
+            <h1 class="font-bold tracking-tight text-xl hidden md:block">TechPulse Admin</h1>
             <div class="flex items-center gap-4 ml-auto">
                 
                 <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center justify-center border border-slate-200 dark:border-slate-600" title="Toggle Dark Mode">

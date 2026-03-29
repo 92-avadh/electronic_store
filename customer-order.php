@@ -132,9 +132,6 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+
                                         </p>
                                         
                                         <div class="flex flex-wrap gap-3">
-                                            <button class="text-xs font-bold uppercase tracking-widest text-surfaceDark dark:text-white hover:text-primary dark:hover:text-indigo-400 transition-colors flex items-center gap-2 bg-slate-50 dark:bg-slate-900 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/30">
-                                                <span class="material-symbols-outlined text-[18px]">receipt_long</span> Invoice
-                                            </button>
                                             <a href="product.php" class="text-xs font-bold uppercase tracking-widest text-surfaceDark dark:text-white hover:text-primary dark:hover:text-indigo-400 transition-colors flex items-center gap-2 bg-slate-50 dark:bg-slate-900 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/30">
                                                 <span class="material-symbols-outlined text-[18px]">shopping_cart</span> Buy again
                                             </a>

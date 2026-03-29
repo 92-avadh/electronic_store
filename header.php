@@ -10,7 +10,6 @@ $success_message = '';
 $error_message1 = '';
 $success_message1 = '';
 
-// Getting all language variables into array as global variable
 $i=1;
 $statement = $pdo->prepare("SELECT * FROM tbl_language");
 $statement->execute();
@@ -35,7 +34,6 @@ foreach ($result as $row) {
     $after_body = $row['after_body'];
 }
 
-// Order cleanup logic
 $current_date_time = date('Y-m-d H:i:s');
 $statement = $pdo->prepare("SELECT * FROM tbl_payment WHERE payment_status=?");
 $statement->execute(array('Pending'));
@@ -65,7 +63,6 @@ foreach ($result as $row) {
 	}
 }
 
-// Get the current page for dynamic navbar highlighting
 $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 ?>
 <!DOCTYPE html>
@@ -86,10 +83,8 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
       tailwind.config = {
@@ -97,10 +92,10 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+
         theme: {
           extend: {
             colors: {
-              primary: "#4f46e5", // Electric Indigo
-              primaryHover: "#4338ca",
+              primary: "#0ea5e9", // Vivid Blue
+              primaryHover: "#0284c7",
               surface: "#f8fafc", 
-              surfaceDark: "#0f172a", // Deep Slate
+              surfaceDark: "#0f172a",
               textMain: "#0f172a",
               textMuted: "#64748b",
             },
@@ -114,8 +109,8 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+
     </script>
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .text-gradient { background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .dark .text-gradient { background: linear-gradient(135deg, #ffffff 0%, #818cf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient { background: linear-gradient(135deg, #0f172a 0%, #0ea5e9 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .dark .text-gradient { background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 
     <link rel="stylesheet" href="assets/css/magnific-popup.css">
@@ -141,27 +136,24 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+
         <div class="text-2xl font-headline font-black tracking-tight text-surfaceDark dark:text-white uppercase flex items-center gap-2">
             <a href="index.php" class="hover:scale-105 transition-transform block">
                 <?php if($logo != ''): ?>
-                    <img src="assets/uploads/<?php echo $logo; ?>" alt="logo image" class="h-9 dark:invert dark:brightness-0 transition-all">
+                    <img src="assets/uploads/<?php echo $logo; ?>" alt="TechPulse" class="h-10 transition-all">
                 <?php else: ?>
-                    <span class="text-primary dark:text-indigo-400">E</span>-STORE
+                    <span class="text-primary dark:text-sky-400">Tech</span>Pulse
                 <?php endif; ?>
             </a>
         </div>
         
         <nav class="hidden md:flex items-center space-x-10 font-headline font-bold text-sm tracking-widest uppercase">
-            <a class="<?php echo ($cur_page == 'index.php') ? 'text-primary dark:text-indigo-400 border-b-2 border-primary dark:border-indigo-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-indigo-400 transition-colors'; ?>" href="index.php">Home</a>
-            
-            <a class="<?php echo ($cur_page == 'product-category.php' || $cur_page == 'product.php') ? 'text-primary dark:text-indigo-400 border-b-2 border-primary dark:border-indigo-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-indigo-400 transition-colors'; ?>" href="product-category.php">Products</a>
-            
-            <a class="<?php echo ($cur_page == 'about.php') ? 'text-primary dark:text-indigo-400 border-b-2 border-primary dark:border-indigo-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-indigo-400 transition-colors'; ?>" href="about.php">About Us</a>
+            <a class="<?php echo ($cur_page == 'index.php') ? 'text-primary dark:text-sky-400 border-b-2 border-primary dark:border-sky-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-sky-400 transition-colors'; ?>" href="index.php">Home</a>
+            <a class="<?php echo ($cur_page == 'product-category.php' || $cur_page == 'product.php') ? 'text-primary dark:text-sky-400 border-b-2 border-primary dark:border-sky-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-sky-400 transition-colors'; ?>" href="product-category.php">Products</a>
+            <a class="<?php echo ($cur_page == 'about.php') ? 'text-primary dark:text-sky-400 border-b-2 border-primary dark:border-sky-400 pb-1' : 'text-textMuted dark:text-slate-400 hover:text-primary dark:hover:text-sky-400 transition-colors'; ?>" href="about.php">About Us</a>
         </nav>
         
         <div class="flex items-center space-x-2 md:space-x-5">
-            
-            <form action="search-result.php" method="get" class="hidden lg:flex items-center bg-surface dark:bg-slate-800 px-4 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 focus-within:ring-2 ring-primary/20 dark:ring-indigo-500/30 transition-all">
+            <form action="search-result.php" method="get" class="hidden lg:flex items-center bg-surface dark:bg-slate-800 px-4 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 focus-within:ring-2 ring-primary/20 dark:ring-sky-500/30 transition-all">
                 <?php $csrf->echoInputField(); ?>
                 <button type="submit" class="material-symbols-outlined text-textMuted dark:text-slate-400 mr-2 cursor-pointer text-lg">search</button>
-                <input name="search_text" class="bg-transparent border-none focus:ring-0 text-sm w-48 font-medium focus:outline-none placeholder-slate-400 dark:placeholder-slate-500 dark:text-white" placeholder="Search premium tech..." type="text"/>
+                <input name="search_text" class="bg-transparent border-none focus:ring-0 text-sm w-48 font-medium focus:outline-none placeholder-slate-400 dark:placeholder-slate-500 dark:text-white" placeholder="Search electronics..." type="text"/>
             </form>
             
             <button id="theme-toggle" type="button" class="text-textMuted dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-2.5 rounded-full transition-all active:scale-95">
@@ -171,22 +163,22 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+
 
             <?php if(isset($_SESSION['customer'])): ?>
                 <a href="dashboard.php" class="text-textMain dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 px-4 py-2 rounded-full font-headline font-bold text-sm tracking-widest uppercase transition-all active:scale-95 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[20px]" data-icon="person">person</span>
-                    <span class="hidden sm:inline">Dashboard</span>
+                    <span class="material-symbols-outlined text-[20px]">person</span>
+                    <span class="hidden sm:inline">Account</span>
                 </a>
             <?php else: ?>
                 <div class="flex items-center space-x-2">
                     <a href="login.php" class="text-textMain dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 px-4 py-2 rounded-full font-headline font-bold text-sm tracking-widest uppercase transition-all active:scale-95">
                         Log In
                     </a>
-                    <a href="registration.php" class="bg-primary hover:bg-primaryHover dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white px-5 py-2.5 rounded-full font-headline font-bold text-sm tracking-widest uppercase transition-all active:scale-95 shadow-md shadow-primary/20">
+                    <a href="registration.php" class="bg-primary hover:bg-primaryHover dark:bg-sky-600 dark:hover:bg-sky-500 text-white px-5 py-2.5 rounded-full font-headline font-bold text-sm tracking-widest uppercase transition-all active:scale-95 shadow-md shadow-primary/20">
                         Sign Up
                     </a>
                 </div>
             <?php endif; ?>
             
             <a href="cart.php" class="text-textMain dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 p-2.5 rounded-full transition-all active:scale-95 relative">
-                <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                <span class="material-symbols-outlined">shopping_bag</span>
                 <?php if(isset($_SESSION['cart_p_id']) && count($_SESSION['cart_p_id']) > 0): ?>
                     <span class="absolute top-1 right-1 bg-primary text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full shadow-md animate-pulse">
                         <?php echo count($_SESSION['cart_p_id']); ?>

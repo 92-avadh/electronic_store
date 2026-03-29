@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION['user'])) { die("Must be logged in to run cleanup."); }
 
 echo "<div style='font-family: sans-serif; padding: 20px;'>";
-echo "<h2>Silicon Slate - Mass File Cleanup</h2>";
+echo "<h2>TechPulse  Slate - Mass File Cleanup</h2>";
 
 $files_to_delete = [
     // Old 3-Tier Categories

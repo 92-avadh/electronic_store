@@ -38,12 +38,23 @@ $p_total_view = $p_total_view + 1;
 $statement = $pdo->prepare("UPDATE tbl_product SET p_total_view=? WHERE p_id=?");
 $statement->execute(array($p_total_view,$_REQUEST['id']));
 
-// Fetch Category Name for Breadcrumbs
+// Fetch Category Name for Breadcrumbs safely
+$ecat_name = "Store Collection"; // Safe fallback to prevent undefined variable error
+
 $statement = $pdo->prepare("SELECT ecat_name FROM tbl_end_category WHERE ecat_id=?");
 $statement->execute(array($ecat_id));
-$res = $statement->fetchAll(PDO::FETCH_ASSOC);
-foreach($res as $r) { $ecat_name = $r['ecat_name']; }
-
+if ($statement->rowCount() > 0) {
+    $res = $statement->fetchAll(PDO::FETCH_ASSOC);
+    foreach($res as $r) { $ecat_name = $r['ecat_name']; }
+} else {
+    // If not found in end categories, check top categories
+    $stmt_top = $pdo->prepare("SELECT tcat_name FROM tbl_top_category WHERE tcat_id=?");
+    $stmt_top->execute(array($ecat_id));
+    if ($stmt_top->rowCount() > 0) {
+        $res_top = $stmt_top->fetchAll(PDO::FETCH_ASSOC);
+        foreach($res_top as $r) { $ecat_name = $r['tcat_name']; }
+    }
+}
 
 // ADD TO CART LOGIC
 $error_message = '';
@@ -122,6 +133,35 @@ if(isset($_POST['form_add_to_cart'])) {
         }
     }
 }
+
+// ==========================================
+// ADD REVIEW LOGIC
+// ==========================================
+if(isset($_POST['form_review'])) {
+    if(!isset($_SESSION['customer'])) {
+        $error_message .= 'You must be logged in to leave a review.<br>';
+    } else {
+        $rating = $_POST['rating'];
+        $comment = strip_tags($_POST['comment']);
+        
+        if(empty($rating)) {
+            $error_message .= 'Please select a star rating.<br>';
+        } elseif(empty($comment)) {
+            $error_message .= 'Please write a review comment.<br>';
+        } else {
+            // Check if user already reviewed this product
+            $stmt = $pdo->prepare("SELECT * FROM tbl_rating WHERE p_id=? AND cust_id=?");
+            $stmt->execute(array($_REQUEST['id'], $_SESSION['customer']['cust_id']));
+            if($stmt->rowCount() > 0) {
+                $error_message .= 'You have already reviewed this product.<br>';
+            } else {
+                $stmt = $pdo->prepare("INSERT INTO tbl_rating (p_id, cust_id, rating, comment, rating_date) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute(array($_REQUEST['id'], $_SESSION['customer']['cust_id'], $rating, $comment, date('Y-m-d H:i:s')));
+                $success_message = 'Thank you! Your review has been submitted.';
+            }
+        }
+    }
+}
 ?>
 
 <div class="pt-20 min-h-screen bg-surface dark:bg-slate-900 transition-colors duration-300">
@@ -131,9 +171,9 @@ if(isset($_POST['form_add_to_cart'])) {
             <div class="flex items-center gap-2 text-[10px] font-bold text-textMuted dark:text-slate-500 uppercase tracking-widest mb-6">
                 <a href="index.php" class="hover:text-primary dark:hover:text-indigo-400 transition-colors">Home</a>
                 <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-                <a href="product-category.php" class="hover:text-primary dark:hover:text-indigo-400 transition-colors"><?php echo $ecat_name; ?></a>
+                <a href="product-category.php" class="hover:text-primary dark:hover:text-indigo-400 transition-colors"><?php echo htmlspecialchars($ecat_name); ?></a>
                 <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-                <span class="text-surfaceDark dark:text-white truncate max-w-[200px]"><?php echo $p_name; ?></span>
+                <span class="text-surfaceDark dark:text-white truncate max-w-[200px]"><?php echo htmlspecialchars($p_name); ?></span>
             </div>
 
             <?php if($error_message != ''): ?>
@@ -145,7 +185,9 @@ if(isset($_POST['form_add_to_cart'])) {
             <?php if($success_message != ''): ?>
                 <div class="bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 text-green-600 dark:text-green-400 px-6 py-4 rounded-xl text-sm font-bold mb-8 flex justify-between items-center shadow-sm">
                     <span><?php echo $success_message; ?></span>
-                    <a href="cart.php" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-colors shadow-md">View Cart</a>
+                    <?php if (strpos($success_message, 'cart') !== false): ?>
+                        <a href="cart.php" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-colors shadow-md">View Cart</a>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -153,18 +195,37 @@ if(isset($_POST['form_add_to_cart'])) {
         <section class="max-w-[1440px] mx-auto px-6 md:px-12 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
             <div class="lg:col-span-7 grid grid-cols-2 gap-4" data-aos="fade-right">
+                
                 <div class="col-span-2 aspect-[16/10] bg-white dark:bg-slate-800 overflow-hidden rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-8 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this)">
-                    <img class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal transition-transform duration-700 hover:scale-105" src="assets/uploads/<?php echo $p_featured_photo; ?>" alt="<?php echo $p_name; ?>"/>
+                    <img class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal transition-transform duration-700 hover:scale-105" src="assets/uploads/<?php echo $p_featured_photo; ?>" alt="<?php echo htmlspecialchars($p_name); ?>"/>
                 </div>
                 
                 <?php
                 $statement = $pdo->prepare("SELECT * FROM tbl_product_photo WHERE p_id=? LIMIT 2");
                 $statement->execute(array($_REQUEST['id']));
                 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($result as $row) {
+                
+                if(count($result) > 0) {
+                    $index = 1;
+                    foreach ($result as $row) {
+                        $originClass = ($index == 1) ? 'origin-top-left' : 'origin-bottom-right';
+                        ?>
+                        <div class="aspect-square bg-white dark:bg-slate-800 overflow-hidden rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-0 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this)">
+                            <img class="w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal transition-transform duration-700 hover:scale-110" 
+                                 src="assets/uploads/product_photos/<?php echo $row['photo']; ?>" 
+                                 onerror="this.onerror=null; this.src='assets/uploads/<?php echo $p_featured_photo; ?>'; this.classList.add('scale-[1.3]', '<?php echo $originClass; ?>');" 
+                                 alt="Detail view"/>
+                        </div>
+                        <?php
+                        $index++;
+                    }
+                } else {
                     ?>
-                    <div class="aspect-square bg-white dark:bg-slate-800 overflow-hidden rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-6 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this)">
-                        <img class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal transition-transform duration-700 hover:scale-105" src="assets/uploads/product_photos/<?php echo $row['photo']; ?>" alt="Detail view"/>
+                    <div class="aspect-square bg-white dark:bg-slate-800 overflow-hidden rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-0 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this)">
+                        <img class="w-full h-full object-cover scale-[1.3] origin-top-left mix-blend-multiply dark:mix-blend-normal transition-transform duration-700 hover:scale-[1.4]" src="assets/uploads/<?php echo $p_featured_photo; ?>" alt="Detail view 1"/>
+                    </div>
+                    <div class="aspect-square bg-white dark:bg-slate-800 overflow-hidden rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-0 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this)">
+                        <img class="w-full h-full object-cover scale-[1.3] origin-bottom-right mix-blend-multiply dark:mix-blend-normal transition-transform duration-700 hover:scale-[1.4]" src="assets/uploads/<?php echo $p_featured_photo; ?>" alt="Detail view 2"/>
                     </div>
                     <?php
                 }
@@ -178,7 +239,7 @@ if(isset($_POST['form_add_to_cart'])) {
                         <span class="font-headline text-[10px] font-black tracking-widest uppercase text-primary dark:text-indigo-400 mb-3 block">Professional Grade Series</span>
                     <?php endif; ?>
                     
-                    <h1 class="font-headline text-4xl md:text-5xl font-black tracking-tight text-surfaceDark dark:text-white mb-4 leading-tight"><?php echo $p_name; ?></h1>
+                    <h1 class="font-headline text-4xl md:text-5xl font-black tracking-tight text-surfaceDark dark:text-white mb-4 leading-tight"><?php echo htmlspecialchars($p_name); ?></h1>
                     
                     <p class="text-textMuted dark:text-slate-400 text-sm md:text-base leading-relaxed mb-6 font-medium">
                         <?php echo nl2br($p_short_description); ?>
@@ -269,7 +330,7 @@ if(isset($_POST['form_add_to_cart'])) {
                             </div>
                             
                             <button type="submit" name="form_add_to_cart" class="flex-grow py-4 bg-primary hover:bg-primaryHover dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white font-headline font-bold text-sm tracking-widest uppercase rounded-xl shadow-lg shadow-primary/20 dark:shadow-indigo-500/20 hover:shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span> Secure Allocation
+                                <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span> Add to Cart
                             </button>
                         </div>
                         <p class="text-[10px] font-black uppercase tracking-widest text-green-600 dark:text-green-400 mt-3 flex items-center gap-1.5">
@@ -296,14 +357,14 @@ if(isset($_POST['form_add_to_cart'])) {
         <section class="bg-white dark:bg-slate-800 border-y border-slate-100 dark:border-slate-700 py-24 my-12 transition-colors duration-300" data-aos="fade-up">
             <div class="max-w-[1440px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
                 <div class="order-2 md:order-1">
-                    <span class="font-headline text-[10px] font-black tracking-widest uppercase text-primary dark:text-indigo-400 mb-4 block">The Architecture</span>
-                    <h2 class="font-headline text-4xl font-black tracking-tight text-surfaceDark dark:text-white mb-8">Performance is the Only Metric.</h2>
+                    <span class="font-headline text-[10px] font-black tracking-widest uppercase text-primary dark:text-indigo-400 mb-4 block">The Details</span>
+                    <h2 class="font-headline text-4xl font-black tracking-tight text-surfaceDark dark:text-white mb-8">Crafted for Excellence.</h2>
                     <div class="prose dark:prose-invert prose-slate max-w-none text-textMuted dark:text-slate-400 text-base md:text-lg leading-relaxed font-medium">
                         <?php echo $p_description; ?>
                     </div>
                 </div>
                 <div class="order-1 md:order-2 aspect-[4/5] bg-surface dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl relative border border-slate-100 dark:border-slate-700 p-12 flex items-center justify-center">
-                    <img class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal" src="assets/uploads/<?php echo $p_featured_photo; ?>" alt="<?php echo $p_name; ?> Design"/>
+                    <img class="w-full h-full object-contain mix-blend-multiply dark:mix-blend-normal" src="assets/uploads/<?php echo $p_featured_photo; ?>" alt="<?php echo htmlspecialchars($p_name); ?> Design"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-surfaceDark/20 dark:from-black/40 to-transparent"></div>
                 </div>
             </div>
@@ -323,7 +384,7 @@ if(isset($_POST['form_add_to_cart'])) {
 
                 <?php if($p_condition != ''): ?>
                 <div>
-                    <h3 class="font-headline text-2xl font-black text-surfaceDark dark:text-white mb-6 uppercase tracking-tight">Instrument Condition</h3>
+                    <h3 class="font-headline text-2xl font-black text-surfaceDark dark:text-white mb-6 uppercase tracking-tight">Condition</h3>
                     <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 shadow-sm text-textMuted dark:text-slate-400 text-sm font-medium leading-relaxed">
                         <?php echo nl2br($p_condition); ?>
                     </div>
@@ -338,6 +399,90 @@ if(isset($_POST['form_add_to_cart'])) {
                     </div>
                 </div>
                 <?php endif; ?>
+
+                <div class="mt-12 pt-12 border-t border-slate-200 dark:border-slate-700">
+                    <h3 class="font-headline text-3xl font-black text-slate-900 dark:text-white mb-8 tracking-tight">Customer Reviews</h3>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        <div class="lg:col-span-5">
+                            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 shadow-sm sticky top-28">
+                                <h4 class="font-headline font-bold text-xl text-slate-900 dark:text-white mb-2">Write a Review</h4>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Share your experience with this product.</p>
+                                
+                                <?php if(!isset($_SESSION['customer'])): ?>
+                                    <div class="bg-blue-50 dark:bg-sky-500/10 p-6 rounded-2xl text-center border border-blue-100 dark:border-sky-500/20">
+                                        <p class="text-sm font-medium text-blue-800 dark:text-sky-300 mb-4">You must be logged in to leave a review.</p>
+                                        <a href="login.php" class="bg-blue-600 text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-md">Log In Now</a>
+                                    </div>
+                                <?php else: ?>
+                                    <form action="" method="post" class="space-y-4">
+                                        <?php $csrf->echoInputField(); ?>
+                                        <div>
+                                            <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">Rating</label>
+                                            <select name="rating" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm font-bold outline-none focus:border-blue-500 text-slate-900 dark:text-white">
+                                                <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                                                <option value="4">⭐⭐⭐⭐ - Very Good</option>
+                                                <option value="3">⭐⭐⭐ - Good</option>
+                                                <option value="2">⭐⭐ - Fair</option>
+                                                <option value="1">⭐ - Poor</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">Your Review</label>
+                                            <textarea name="comment" rows="4" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-sm outline-none focus:border-blue-500 text-slate-900 dark:text-white" placeholder="What did you like or dislike?"></textarea>
+                                        </div>
+                                        <button type="submit" name="form_review" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3.5 rounded-xl font-bold text-xs uppercase tracking-widest hover:scale-[1.02] transition-transform shadow-lg">Submit Review</button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-7 space-y-6">
+                            <?php
+                            $stmt_rev = $pdo->prepare("
+                                SELECT r.*, c.cust_name 
+                                FROM tbl_rating r 
+                                JOIN tbl_customer c ON r.cust_id = c.cust_id 
+                                WHERE r.p_id = ? 
+                                ORDER BY r.rating_id DESC
+                            ");
+                            $stmt_rev->execute(array($_REQUEST['id']));
+                            $reviews = $stmt_rev->fetchAll(PDO::FETCH_ASSOC);
+
+                            if(count($reviews) == 0): ?>
+                                <div class="text-center py-12 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-700/50">
+                                    <span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600 mb-3 block">reviews</span>
+                                    <p class="text-slate-500 dark:text-slate-400 font-medium">No reviews yet. Be the first to review this product!</p>
+                                </div>
+                            <?php else: ?>
+                                <?php foreach($reviews as $rev): ?>
+                                    <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 bg-blue-100 dark:bg-sky-500/20 text-blue-600 dark:text-sky-400 rounded-full flex items-center justify-center font-bold text-sm">
+                                                    <?php echo strtoupper(substr($rev['cust_name'], 0, 1)); ?>
+                                                </div>
+                                                <div>
+                                                    <p class="font-bold text-sm text-slate-900 dark:text-white"><?php echo htmlspecialchars($rev['cust_name']); ?></p>
+                                                    <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-widest"><?php echo date('M d, Y', strtotime($rev['rating_date'])); ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="flex text-yellow-400">
+                                                <?php 
+                                                for($i=1; $i<=5; $i++) {
+                                                    if($i <= $rev['rating']) { echo '<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: \'FILL\' 1;">star</span>'; } 
+                                                    else { echo '<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: \'FILL\' 0;">star</span>'; }
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed"><?php echo nl2br(htmlspecialchars($rev['comment'])); ?></p>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
                 
             </div>
         </section>
@@ -350,18 +495,15 @@ if(isset($_POST['form_add_to_cart'])) {
 </div>
 
 <script>
-    // Lightbox Logic for Images
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
 
     function openLightbox(element) {
-        // Get the image inside the clicked container
         const imgSrc = element.querySelector('img').src;
         modalImg.src = imgSrc;
         
         modal.classList.remove('hidden');
-        // Trigger reflow for animation
-        void modal.offsetWidth;
+        void modal.offsetWidth; 
         
         modal.classList.remove('opacity-0');
         modalImg.classList.remove('scale-95');
