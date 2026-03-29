@@ -105,8 +105,9 @@ if (!$is_all_products && count($final_ecat_ids) > 0) {
     $params = array_merge($params, $final_ecat_ids);
 }
 
+// FIX: Added CAST to convert string prices to actual decimal numbers for accurate mathematical comparison
 if (isset($_GET['max_price']) && is_numeric($_GET['max_price']) && $_GET['max_price'] > 0) {
-    $where_clauses[] = "p_current_price <= ?";
+    $where_clauses[] = "CAST(p_current_price AS DECIMAL(10,2)) <= ?";
     $params[] = $_GET['max_price'];
 }
 
@@ -183,6 +184,13 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cur
                     $statement->execute();
                     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($result as $row) {
+                        
+                        // FIX: Exclude Laptops, Watches, and Cameras from the filter list
+                        $cat_name_lower = strtolower($row['tcat_name']);
+                        if(strpos($cat_name_lower, 'laptop') !== false || strpos($cat_name_lower, 'watch') !== false || strpos($cat_name_lower, 'camera') !== false) {
+                            continue; // Skip rendering this button
+                        }
+
                         $isActive = (!$is_all_products && $current_type == 'top-category' && $current_id == $row['tcat_id']);
                         $activeClass = $isActive ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700';
                         echo '<a href="product-category.php?id='.$row['tcat_id'].'&type=top-category" class="flex-shrink-0 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all '.$activeClass.'">'.$row['tcat_name'].'</a>';
@@ -317,7 +325,7 @@ input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cur
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-[450px]">
                 
                 <div class="bg-slate-900 rounded-[3rem] relative overflow-hidden group cursor-pointer shadow-xl" onclick="window.location.href='product-category.php';">
-                    <img class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay group-hover:scale-105 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLl9I830xjbjxsauuiJ7VGubzwghYkE3meKLfK55-2zjkoqad6HYt-o_wZUGOeMnKAyxVdZjA8F7x2iBSID1bmNRv6AK3fIvcGVLs9Roq_OwPudSHs3_3SVw36Fe4DkuJK2isgnxAq6oPohlrqPyIf6muAuX8Ry76DsSXIAugCX1SldKJj5hKFzFNQYWq-0xjDiTNteQRApRxnyrAmxaFkcDQCYQrqzddpfjg3rCXa-4wdQrjbxBVSQpX2EuUXwqu12LzsMlwaG5Zy" alt="Pro Laptops"/>
+                    <img class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay group-hover:scale-105 transition-transform duration-1000" src="assets/uploads/laptop-1.jpg" alt="Pro Laptops"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-12 flex flex-col justify-end">
                         <span class="bg-blue-600 text-white w-max px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] mb-4 shadow-lg">Pro Series</span>
                         <h3 class="text-4xl font-headline font-black text-white tracking-tighter mb-3 leading-none">The Creator<br>Studio.</h3>

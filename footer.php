@@ -21,11 +21,17 @@ foreach ($result as $row) {
             <p class="text-slate-400 font-body text-sm leading-relaxed mb-8 max-w-md">
                 Your ultimate destination for the latest electronics, premium accessories, and smart home technology. We deliver certified products straight to your door.
             </p>
-            <div class="flex space-x-4">
-                <a href="#" class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-primary dark:hover:bg-sky-500 transition-colors"><i class="fa fa-facebook"></i></a>
-                <a href="#" class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-primary dark:hover:bg-sky-500 transition-colors"><i class="fa fa-twitter"></i></a>
-                <a href="#" class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-primary dark:hover:bg-sky-500 transition-colors"><i class="fa fa-instagram"></i></a>
-            </div>
+            <div class="flex space-x-4 mt-4">
+    <a href="#" style="height:40px;width:40px;border-radius:50%;background:#1e293b;display:flex;align-items:center;justify-content:center;color:white;">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="#" style="height:40px;width:40px;border-radius:50%;background:#1e293b;display:flex;align-items:center;justify-content:center;color:white;">
+        <i class="fab fa-twitter"></i>
+    </a>
+    <a href="#" style="height:40px;width:40px;border-radius:50%;background:#1e293b;display:flex;align-items:center;justify-content:center;color:white;">
+        <i class="fab fa-instagram"></i>
+    </a>
+</div>
         </div>
 
         <div class="md:col-span-2">
